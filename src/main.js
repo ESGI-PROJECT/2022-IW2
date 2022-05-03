@@ -1,55 +1,41 @@
-import { getProducts } from "./api/products"
-import Product from './components/product';
+import page from "page";
+import { getProducts, getProduct } from "./api/products"
 
 
 (async (root) => {
   const skeleton = root.querySelector(".skeleton");
   const main = root.querySelector("main");
 
-  const products = await getProducts();
-  const cards = products.map((item) => {
-    const product = Product;
+  const AppHome = main.querySelector('app-home');
+  const AppProduct = main.querySelector('app-product');
+  
+  page('*', (ctx, next) => {
+    AppHome.active = false;
+    AppProduct.active = false;
 
-    product.props.id = item.id;
-    product.props.title = item.title;
-    product.props.description = item.description;
-    product.props.image = item.image;
+    skeleton.removeAttribute('hidden');
 
-    const card = product.render();
-
-    return card;
+    next();
   });
 
-  main.append(...cards);
+  page('/', async () => {
+    await import("./views/app-home");
+    const products = await getProducts();
+    AppHome.products = products;
+    AppHome.active = true;
 
+    skeleton.setAttribute('hidden', true);
+  });
 
-  /**
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
-   */
-  // const options = {
-  //   rootMarging : '0px 0px 0px 0px'
-  // };
-  
-  // const callback = entries => {
-  //   entries.forEach(entry => {
-  //     if (entry.isIntersecting) {
-  //       // Actualy load image
-  //       const image = entry.target
-  //       image.src = image.dataset.src;
-  //       image.onload = () => {
-  //         image.parentNode.querySelector('.placeholder').classList.add('fade');
-  //         io.unobserve(image);
-  //       }
-  //     }
-  //   })
-  // }
-  
-  // const io = new IntersectionObserver(callback, options);
+  page('/product/:id', async ({ params }) => {
+    await import('./views/app-product');
+    const product = await getProduct(params.id);
 
-  // cards.forEach(card => {
-  //   const image = card.querySelector('img');
-  //   io.observe(image);
-  // });
+    AppProduct.product = product;
+    AppProduct.active = true;
 
-  skeleton.setAttribute('hidden', true);
+    skeleton.setAttribute('hidden', true);
+  });
+
+  page();
 })(document.querySelector("#app"));
