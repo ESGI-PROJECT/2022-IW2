@@ -29,9 +29,9 @@ import { getProducts, getProduct } from "./api/products"
 
   page('/product/:id', async ({ params }) => {
     await import('./views/app-product');
-    const product = await getProduct(params.id);
+    // const product = await getProduct(params.id);
 
-    AppProduct.product = product;
+    // AppProduct.product = product;
     AppProduct.active = true;
 
     skeleton.setAttribute('hidden', true);

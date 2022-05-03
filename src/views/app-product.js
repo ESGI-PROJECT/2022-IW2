@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
+import '../components/iron-ajax'
 
 export class AppProduct extends Base {
   constructor() {
@@ -17,6 +18,10 @@ export class AppProduct extends Base {
 
   render() {
     return html`
+      <!-- <iron-ajax
+        url="https://fakestoreapi.com/products/3"
+        @get-data=${this.plop}></iron-ajax> -->
+
       <section class="product">
         <header>
           <figure>
