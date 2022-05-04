@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { Base } from '../Base';
+import { LitElement, html, css } from "lit";
+import { Base } from "../Base";
 
 export class AppProduct extends Base {
   constructor() {
@@ -20,12 +20,18 @@ export class AppProduct extends Base {
       <section class="product">
         <header>
           <figure>
-            <div class="placeholder ${this.loaded ? 'fade' : '' }" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
+            <div
+              class="placeholder ${this.loaded ? "fade" : ""}"
+              style="background-image: url(http://localhost:9000/image/24/${this
+                .product.image})"
+            ></div>
             <img
               alt="${this.product.title}"
               src="http://localhost:9000/image/620/${this.product.image}"
               loading="lazy"
-              width="1280" height="720">
+              width="1280"
+              height="720"
+            />
           </figure>
         </header>
         <main>
@@ -36,4 +42,4 @@ export class AppProduct extends Base {
     `;
   }
 }
-customElements.define('app-product', AppProduct);
+customElements.define("app-product", AppProduct);

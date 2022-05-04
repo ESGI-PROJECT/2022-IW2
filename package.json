@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx vite dev --port 8080",
     "database": "npx json-server ./data/db.json --port 3000",
+    "dev": "npx vite dev --port 8080",
+    "lint:fix": "eslint --fix && prettier --write .",
     "shapper": "npx shapper-proxy serve --port 9000"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "eslint": "^8.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-html": "^6.2.0",
     "vite": "^2.9.1"
   },
   "dependencies": {

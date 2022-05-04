@@ -1,8 +1,12 @@
 import page from "page";
 import checkConnectivity from "network-latency";
-import { getRessource, getRessources, setRessource, setRessources } from './idbHelper';
-import { getProducts, getProduct } from "./api/products"
-
+import {
+  getRessource,
+  getRessources,
+  setRessource,
+  setRessources,
+} from "./idbHelper";
+import { getProducts, getProduct } from "./api/products";
 
 (async (root) => {
   const skeleton = root.querySelector(".skeleton");
@@ -10,37 +14,35 @@ import { getProducts, getProduct } from "./api/products"
 
   checkConnectivity({
     interval: 3000,
-    threshold: 2000
+    threshold: 2000,
   });
 
   let NETWORK_STATE = true;
 
-  document.addEventListener('connection-changed', ({ detail: state }) => {
+  document.addEventListener("connection-changed", ({ detail: state }) => {
     NETWORK_STATE = state;
     if (NETWORK_STATE) {
-      document.documentElement
-        .style.setProperty('--app-bg-color', 'royalblue');
+      document.documentElement.style.setProperty("--app-bg-color", "royalblue");
     } else {
-      document.documentElement
-        .style.setProperty('--app-bg-color', '#6e6f72');
+      document.documentElement.style.setProperty("--app-bg-color", "#6e6f72");
     }
   });
 
-  const AppHome = main.querySelector('app-home');
-  const AppProduct = main.querySelector('app-product');
-  
-  page('*', (ctx, next) => {
+  const AppHome = main.querySelector("app-home");
+  const AppProduct = main.querySelector("app-product");
+
+  page("*", (ctx, next) => {
     AppHome.active = false;
     AppProduct.active = false;
 
-    skeleton.removeAttribute('hidden');
+    skeleton.removeAttribute("hidden");
 
     next();
   });
 
-  page('/', async () => {
+  page("/", async () => {
     await import("./views/app-home");
-    
+
     let storedProducts = [];
     if (NETWORK_STATE) {
       const products = await getProducts();
@@ -52,11 +54,11 @@ import { getProducts, getProduct } from "./api/products"
     AppHome.products = storedProducts;
     AppHome.active = true;
 
-    skeleton.setAttribute('hidden', true);
+    skeleton.setAttribute("hidden", true);
   });
 
-  page('/product/:id', async ({ params }) => {
-    await import('./views/app-product');
+  page("/product/:id", async ({ params }) => {
+    await import("./views/app-product");
 
     let storedProduct = {};
     if (NETWORK_STATE) {
@@ -69,7 +71,7 @@ import { getProducts, getProduct } from "./api/products"
     AppProduct.product = storedProduct;
     AppProduct.active = true;
 
-    skeleton.setAttribute('hidden', true);
+    skeleton.setAttribute("hidden", true);
   });
 
   page();

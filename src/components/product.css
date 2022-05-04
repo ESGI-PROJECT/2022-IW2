@@ -45,7 +45,7 @@
 .card main p {
   padding-top: 0.25rem;
   font-size: 0.75rem;
-  color: #6D6D6D;
+  color: #6d6d6d;
 }
 
 /**
@@ -62,18 +62,30 @@
 
 /* Key frame animation */
 @keyframes fadeout {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Firefox */
 @-moz-keyframes fadeout {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Safari and Chrome */
 @-webkit-keyframes fadeout {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { Base } from '../Base';
+import { LitElement, html, css } from "lit";
+import { Base } from "../Base";
 
 export class ProductCard extends Base {
   constructor() {
@@ -13,10 +13,10 @@ export class ProductCard extends Base {
     return {
       product: { type: Object },
       loaded: { type: Boolean, state: true },
-    }
+    };
   }
   firstUpdated() {
-    this.querySelector('img').addEventListener('load', () => {
+    this.querySelector("img").addEventListener("load", () => {
       this.loaded = true;
     });
   }
@@ -25,20 +25,26 @@ export class ProductCard extends Base {
       <a href="/product/${this.product.id}" class="card">
         <header>
           <figure>
-            <div class="placeholder ${this.loaded ? 'fade' : ''}" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
+            <div
+              class="placeholder ${this.loaded ? "fade" : ""}"
+              style="background-image: url(http://localhost:9000/image/24/${this
+                .product.image})"
+            ></div>
             <img
               alt="${this.product.title}"
               src="http://localhost:9000/image/620/${this.product.image}"
               loading="lazy"
-              width="1280" height="720">
+              width="1280"
+              height="720"
+            />
           </figure>
         </header>
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
         </main>
-  </a>
+      </a>
     `;
   }
 }
-customElements.define('product-card', ProductCard);
+customElements.define("product-card", ProductCard);
