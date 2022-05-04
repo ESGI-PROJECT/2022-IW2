@@ -15,6 +15,15 @@ export class AppProduct extends Base {
     };
   }
 
+  firstUpdated() {
+    this.querySelector('.add-to-cart-btn')
+        .addEventListener('click',() => this.addToCart())
+  }
+
+  addToCart() {
+    console.log('add', this.product.id)
+  }
+
   render() {
     return html`
       <section class="product">
@@ -31,7 +40,7 @@ export class AppProduct extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
-          <button class="btn" >+ Add to cart</button>
+          <button class="btn add-to-cart-btn" >+ Add to cart</button>
         </main>
       </section>
     `;

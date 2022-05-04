@@ -1,6 +1,7 @@
 import { openDB } from "idb";
 
 const PRODUCT_STORE_NAME = "Products";
+const CART_STORE_NAME = "Cart";
 
 export function initDB() {
   return  openDB("Nozama shop 🛍", 1, {
@@ -11,6 +12,11 @@ export function initDB() {
 
       store.createIndex("id", "id");
       store.createIndex("category", "category");
+
+      const cartStore = db.createObjectStore(CART_STORE_NAME, {
+        keyPath: 'product_id'
+      })
+      cartStore.createIndex("product_id", "product_id");
     }
   });
 }
@@ -33,9 +39,22 @@ export async function setRessource(data = {}) {
   return db.getFromIndex(PRODUCT_STORE_NAME, 'id', data.id);
 }
 
+export async function addToCart(data = {}){
+  const db = await initDB();
+  const tx = db.transaction(CART_STORE_NAME, 'readwrite')
+  tx.store.put(data);
+  await tx.done;
+  return db.getFromIndex(CART_STORE_NAME, 'product_id', data.product_id)
+}
+
 export async function getRessources() {
   const db = await initDB();
   return db.getAllFromIndex(PRODUCT_STORE_NAME, "id");
+}
+
+export async function getCartItems() {
+  const db = await initDB();
+  return db.getAllFromIndex(CART_STORE_NAME, "product_id");
 }
 
 export async function getRessource(id) {
@@ -43,7 +62,17 @@ export async function getRessource(id) {
   return db.getFromIndex(PRODUCT_STORE_NAME, "id", Number(id));
 }
 
+export async function getCartItem(product_id) {
+  const db = await initDB();
+  return db.getFromIndex(CART_STORE_NAME, "product_id", Number(product_id));
+}
+
 export async function unsetRessource(id) {
   const db = await initDB();
   await db.delete(PRODUCT_STORE_NAME, id);
+}
+
+export async function removeCartItem(product_id) {
+  const db = await initDB();
+  await db.delete(CART_STORE_NAME, product_id);
 }
