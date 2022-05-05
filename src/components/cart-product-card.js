@@ -40,7 +40,7 @@ export class ProductCard extends Base {
     async removeFromCart() {
         if (this.product.quantity <= 1)
             return
-        
+
         this.product.quantity = this.product.quantity - 1
         await this.updateProduct()
     }
@@ -59,7 +59,8 @@ export class ProductCard extends Base {
                                 width="200" height="720">
                     </div>
                     <div style="flex-basis: 50%">
-                        <h1>${this.product.title}</h1>
+                        <p>${this.product.title}</p>
+                        <h6>Total: ${this.product.price * this.product.quantity}€</h6>
                     </div>
                     <div style="flex-basis: 30%">
                         <h6>You have ${this.product.quantity} items</h6>

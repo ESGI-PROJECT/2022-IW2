@@ -61,7 +61,7 @@ import {updateCart} from "./api/cart";
     page('/cart', async () => {
         await import("./views/app-cart");
 
-        let cartItems = [];
+        let cartItems = await getRessources('Cart');
         if (NETWORK_STATE) {
             const data = {
                 items: cartItems,
@@ -69,7 +69,6 @@ import {updateCart} from "./api/cart";
                     return total + (item.price * item.quantity)
                 }, 0)
             }
-
             await updateCart(data)
         }
 
