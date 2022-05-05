@@ -1,6 +1,7 @@
 {
   "cart": {
-    "items": []
+    "items": [],
+    "total": 0
   },
   "products": [
     {

@@ -2,6 +2,7 @@ import page from "page";
 import checkConnectivity from "network-latency";
 import {getRessource, getRessources, setRessource, setRessources} from './idbHelper';
 import {getProducts, getProduct} from "./api/products"
+import {updateCart} from "./api/cart";
 
 
 (async (root) => {
@@ -60,22 +61,20 @@ import {getProducts, getProduct} from "./api/products"
     page('/cart', async () => {
         await import("./views/app-cart");
 
-        let storedProducts = [];
+        let cartItems = [];
         if (NETWORK_STATE) {
-            // const products = await getProducts();
-            storedProducts = await getRessources('Cart');
-        } else {
-            storedProducts = await getRessources('Cart');
+            const data = {
+                items: cartItems,
+                total: cartItems.reduce((total, item) => {
+                    return total + (item.price * item.quantity)
+                }, 0)
+            }
+
+            await updateCart(data)
         }
 
-        // const storedProducts = await Promise.all(
-        //     storedProductsIds.map(
-        //         (cart_item) => getRessource(cart_item.product_id)
-        //     )
-        // )
-
         AppCart.active = true;
-        AppCart.products = storedProducts
+        AppCart.products = cartItems
         skeleton.setAttribute('hidden', true);
     });
 
