@@ -83,9 +83,9 @@ import {updateCart} from "./api/cart";
         let storedProduct = {};
         if (NETWORK_STATE) {
             const product = await getProduct(params.id);
-            storedProduct = await setRessource('Product', product);
+            storedProduct = await setRessource('Products', product);
         } else {
-            storedProduct = await getRessource('Product', params.id);
+            storedProduct = await getRessource('Products', params.id);
         }
 
         AppProduct.product = storedProduct;

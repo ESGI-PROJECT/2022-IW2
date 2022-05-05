@@ -12,7 +12,7 @@
           "rate": 3.9,
           "count": 120
         },
-        "quantity": 1
+        "quantity": 2
       },
       {
         "id": 2,
@@ -38,7 +38,7 @@
           "rate": 4.7,
           "count": 500
         },
-        "quantity": 1
+        "quantity": 11
       },
       {
         "id": 4,
@@ -93,7 +93,7 @@
         "quantity": 6
       }
     ],
-    "total": 16269.119999999999
+    "total": 16938.97
   },
   "products": [
     {
