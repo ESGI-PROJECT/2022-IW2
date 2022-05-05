@@ -9,20 +9,24 @@
     :root {
       --app-bg-color: royalblue;
     }
-    *,*::before, *::after {
+
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
     }
+
     html, body {
       height: 100%;
       width: 100%;
       background-color: #fefefe;
       font-family: sans-serif;
     }
+
     h1 {
       margin: 0;
       padding: 0;
     }
+
     #app > header {
       text-align: center;
       position: sticky;
@@ -36,34 +40,43 @@
       z-index: 10;
       padding: 5px 20px;
     }
+
     #app > header a {
       text-decoration: none;
       color: inherit;
     }
+
     #app > main {
       padding: 0 1rem;
       padding-top: 1rem;
       padding-bottom: 1rem;
     }
+
     /* App shell */
     /* Skeleton */
-    [hidden] { display: none !important; }
+    [hidden] {
+      display: none !important;
+    }
+
     /* Skeleton */
     .skeleton {
       position: relative;
       overflow: hidden;
     }
+
     .skeleton .hero {
       min-height: 30vh;
       background: var(--app-grey-color, #cccccc);
       margin-bottom: 1rem;
       border-radius: 5px;
     }
+
     .skeleton .title {
       min-height: 20px;
       background: var(--app-grey-color, #cccccc);
       margin-bottom: 1rem;
     }
+
     .skeleton .text {
       min-height: 20px;
       max-width: 60%;
@@ -82,6 +95,7 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
       animation: loading 1.5s infinite;
     }
+
     @keyframes loading {
       100% {
         transform: translateX(100%);
@@ -89,7 +103,6 @@
     }
 
     .btn {
-      background-color: royalblue;
       outline: none;
       border: none;
       border-radius: 8px;
@@ -99,9 +112,20 @@
       width: 100%;
     }
 
+    .btn-blue {
+      background-color: royalblue;
+      margin: 0;
+    }
+
+    .btn-red {
+      background-color: red;
+      margin: 0;
+    }
+
     [page] {
       display: none;
     }
+
     [page][active] {
       display: block;
     }
@@ -109,28 +133,32 @@
   <script src="./src/main.js" type="module"></script>
 
   <link href="./src/components/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="./src/components/product.css"></noscript>
+  <noscript>
+    <link rel="stylesheet" href="./src/components/product.css">
+  </noscript>
 
   <link href="./assets/css/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="./assets/css/product.css"></noscript>
+  <noscript>
+    <link rel="stylesheet" href="./assets/css/product.css">
+  </noscript>
 </head>
 <body>
-  <section id="app">
-    <header>
-      <h1><a href="/">Nozama shop 🛍</a></h1>
-      <a href="/cart">Panier</a>
-    </header>
-    <main>
-      <app-home page></app-home>
-      <app-product page></app-product>
-      <app-cart page ></app-cart>
+<section id="app">
+  <header>
+    <h1><a href="/">Nozama shop 🛍</a></h1>
+    <a href="/cart">Panier</a>
+  </header>
+  <main>
+    <app-home page></app-home>
+    <app-product page></app-product>
+    <app-cart page></app-cart>
 
-      <div class="skeleton">
-        <div class="hero"></div>
-        <div class="title"></div>
-        <div class="text"></div>
-      </div>
-    </main>
-  </section>
+    <div class="skeleton">
+      <div class="hero"></div>
+      <div class="title"></div>
+      <div class="text"></div>
+    </div>
+  </main>
+</section>
 </body>
 </html>
