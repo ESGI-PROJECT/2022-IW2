@@ -33,3 +33,18 @@
 .product main p {
   margin-top: 1rem;
 }
+
+.product footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.product footer button {
+  width: 100%;
+  height: 2em;
+  background-color: mediumspringgreen;
+  border: none;
+  font-size: 24px;
+  border-radius: 5px;
+  cursor: pointer;
+}

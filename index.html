@@ -29,11 +29,12 @@
       top: 0;
       background-color: var(--app-bg-color);
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       height: 56px;
       color: #ffffff;
       z-index: 10;
+      padding: 0 10px;
     }
     #app > header a {
       text-decoration: none;
@@ -99,6 +100,9 @@
   <link href="./src/components/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="./src/components/product.css"></noscript>
 
+  <link href="./src/components/table.css" rel="preload" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./src/components/table.css"></noscript>
+
   <link href="./assets/css/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="./assets/css/product.css"></noscript>
 </head>
@@ -106,10 +110,14 @@
   <section id="app">
     <header>
       <h1><a href="/">Nozama shop 🛍</a></h1>
+      <a href="/cart"
+         style="padding: 0.5rem 1rem;
+         border-radius: 5px;">Cart</a>
     </header>
     <main>
       <app-home page></app-home>
       <app-product page></app-product>
+      <app-cart page></app-cart>
 
       <div class="skeleton">
         <div class="hero"></div>

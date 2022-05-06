@@ -4,8 +4,12 @@
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px hsla(0, 0%, 0%, 0.44);
-  text-decoration: none;
   display: block;
+  color: inherit;
+}
+
+.card a {
+  text-decoration: none;
   color: inherit;
 }
 
@@ -35,7 +39,7 @@
   background-position: center;
 }
 
-.card main {
+.card main, .card footer {
   padding: 0.25rem 0.5rem;
 }
 .card main h1 {
@@ -46,6 +50,24 @@
   padding-top: 0.25rem;
   font-size: 0.75rem;
   color: #6D6D6D;
+}
+
+.card footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card footer button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2em;
+  height: 2em;
+  background-color: mediumspringgreen;
+  border: none;
+  font-size: 24px;
+  border-radius: 25%;
+  cursor: pointer;
 }
 
 /**
