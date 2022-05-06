@@ -2,14 +2,14 @@ import { createRequest } from "./api.js"
 
 const request = createRequest();
 
-export function getProducts() {
-	return request.get("/products")
+export function getCart() {
+	return request.get("/cart")
 		.then(({ data }) => data)
 		.catch(console.error);
 }
 
-export function getProduct(productId) {
-	return request.get(`/products/${productId}`)
+export function setCart(data) {
+	return request.post(`/cart/`, data)
 		.then(({ data }) => data)
 		.catch(console.error);
 }

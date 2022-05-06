@@ -14,10 +14,10 @@ export class AppHome extends Base {
     };
   }
   render() {
-    return this.products.map(product => html`
+     return this.products.map(product => html`
       <product-card
         .product="${product}"
-      ></product-card> 
+      ></product-card>
     `)
   }
 }

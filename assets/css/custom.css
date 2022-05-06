@@ -1,0 +1,36 @@
+/* GENERAL */
+
+:root {
+    --table-bg-color: #DDEEEE;
+}
+
+/* TABLE */
+.table-cart {
+    border: solid 1px  var(--app-bg-color);
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+}
+.table-cart thead th {
+    background-color: #DDEFEF;
+    border: solid 1px  var(--app-bg-color);
+    color: #336B6B;
+    padding: 10px;
+    text-align: left;
+    text-shadow: 1px 1px 1px #fff;
+}
+.table-cart tbody td {
+    border: solid 1px  var(--app-bg-color);
+    color: #333;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #fff;
+}
+
+.table-cart .actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: stretch;
+    border: none;
+}
