@@ -8,13 +8,11 @@ export class AppCart extends Base {
 				super();
 
 			this.cart = {};
-			this.networkState = true;
 		}
 
 		static get properties() {
 				return {
 					cart: { type: Object },
-					networkState: { type: Boolean }
 				};
 		}
 
@@ -104,7 +102,7 @@ export class AppCart extends Base {
 				if (inc) {
 						ressourceCart.total += currentItem.price;
 						await setRessourceCart(ressourceCart);
-						if(this.networkState)await setCart(ressourceCart);
+						await setCart(ressourceCart);
 						this.cart = ressourceCart;
 				}
 		}
@@ -130,7 +128,7 @@ export class AppCart extends Base {
 				if (dec) {
 						ressourceCart.total -= currentItem.price;
 						await setRessourceCart(ressourceCart);
-						if (this.networkState) await setCart(ressourceCart);
+						 await setCart(ressourceCart);
 						this.cart = ressourceCart;
 						
 				}
@@ -155,7 +153,7 @@ export class AppCart extends Base {
 				ressourceCart.items = newItems;
 
 				await setRessourceCart(ressourceCart);
-				if (this.networkState) await setCart(ressourceCart);
+				 await setCart(ressourceCart);
 				this.cart = ressourceCart;
 		}
 
@@ -168,7 +166,7 @@ export class AppCart extends Base {
 				ressourceCart.total = 0;
 
 				await setRessourceCart(ressourceCart);
-				if (this.networkState) await setCart(ressourceCart);
+				 await setCart(ressourceCart);
 				this.cart = ressourceCart;
 		}
 }

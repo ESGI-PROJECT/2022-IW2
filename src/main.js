@@ -59,11 +59,8 @@ import { setCart, getCart } from "./api/cart"
     } else {
       storedProducts = await getRessources();
     }
-
-
     AppHome.products = storedProducts;
     AppHome.active = true;
-    AppHome.networkState = NETWORK_STATE;
 
     skeleton.setAttribute('hidden', true);
   });
@@ -81,7 +78,6 @@ import { setCart, getCart } from "./api/cart"
 
     AppProduct.product = storedProduct;
     AppProduct.active = true;
-    AppProduct.networkState = NETWORK_STATE;
 
     skeleton.setAttribute('hidden', true);
   });
@@ -97,7 +93,6 @@ import { setCart, getCart } from "./api/cart"
       cart = await getRessourceCart();
     }
 
-    AppCart.networkState = NETWORK_STATE;
     AppCart.cart = cart;
     AppCart.active = true;
     skeleton.setAttribute('hidden', true);

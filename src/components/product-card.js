@@ -9,14 +9,12 @@ export class ProductCard extends Base {
 
     this.product = {};
     this.loaded = false;
-    this.networkState = true;
 
   }
   static get properties() {
     return {
       product: { type: Object },
       loaded: { type: Boolean, state: true },
-      networkState: { type: Boolean }
     }
   }
   firstUpdated() {
@@ -68,7 +66,7 @@ export class ProductCard extends Base {
     // add total price
     ressourceCart.total += this.product.price;
     await setRessourceCart(ressourceCart);
-    if (this.networkState) await setCart(ressourceCart);
+    await setCart(ressourceCart);
 
   }
 }
