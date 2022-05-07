@@ -93,6 +93,10 @@
     [page][active] {
       display: block;
     }
+
+    #cart-link {
+      margin-left: 50px;
+    }
   </style>
   <script src="./src/main.js" type="module"></script>
 
@@ -106,6 +110,9 @@
   <section id="app">
     <header>
       <h1><a href="/">Nozama shop 🛍</a></h1>
+      <a id="cart-link" href="/cart">
+        <button>Go to cart</button>
+      </a>
     </header>
     <main>
       <app-home page></app-home>

@@ -65,20 +65,16 @@ export async function unsetRessource(id) {
 // Carts getter and setter
 export async function addProductToCart(newProduct = {}) {
   const db = await initDB();
-  const cart = await getCart();
+  let cart = await getCart();
   
-  // update cart with new product
   let productAlreadyExist = false;
-  // Check if product is already in cart
   cart.products.forEach(product => {
-    // If yes, increment quantity of the product
     if (product.id === newProduct.id) {
       productAlreadyExist = true;
       product.quantity += 1;
     }
   })
   
-  // If no, add attribute quantity set to 1 and add product to cart
   if (!productAlreadyExist) {
     newProduct.quantity = 1;
     cart.products.push(newProduct);
@@ -88,7 +84,9 @@ export async function addProductToCart(newProduct = {}) {
   const tx = db.transaction(CART_STORE_NAME, 'readwrite');
   tx.store.put(cart);
   await tx.done;
-  return db.getFromIndex(CART_STORE_NAME, 'id', cart.id);
+
+  const updatedProduct = cart.products.find(product => product.id === newProduct.id);
+  return updatedProduct;
 }
 
 export async function getCart() {
@@ -106,11 +104,13 @@ export async function removeProductFromCart(productId) {
     // Decrease product quantity if the product is more than 1 time in cart
     if (product.id === productId && product.quantity > 1) {
       product.quantity--;
+      break;
     }
 
     // Remove product if the product is only 1 time in cart
-    if (product.id === productId && product.quantity < 1) {
+    if (product.id === productId && product.quantity <= 1) {
       cart.products.splice(i, 1);
+      break;
     }
   }
 
@@ -120,5 +120,6 @@ export async function removeProductFromCart(productId) {
   const tx = db.transaction(CART_STORE_NAME, 'readwrite');
   tx.store.put(cart);
   await tx.done;
-  return db.getFromIndex(CART_STORE_NAME, 'id', cart.id);
+  const updatedProduct = cart.products.find(product => product.id === productId);
+  return updatedProduct;
 }

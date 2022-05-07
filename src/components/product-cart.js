@@ -1,36 +1,40 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
-import { addProductToCart } from '../idbHelper';
+import { addProductToCart, removeProductFromCart } from '../idbHelper';
 
 export class ProductCart extends Base {
   constructor() {
     super();
 
     this.product = {};
-
-    this.loaded = false;
+    this.updateCart = () => {};
   }
   static get properties() {
     return {
       product: { type: Object },
-      loaded: { type: Boolean, state: true },
+      updateCart: { type: Function },
     }
   }
 
-  addProduct() {
-    addProductToCart(this.product);
+  async addProduct() {
+    const updatedProduct = await addProductToCart(this.product);
+    // this.product = updatedProduct;
+    // console.log(this.product);
+    this.updateCart();
   }
 
-  removeProduct() {
-    removeProductFromCart(this.product.id);
-}
+  async removeProduct() {
+    const updatedProduct = await removeProductFromCart(this.product.id);
+    // this.product = updatedProduct;
+    this.updateCart();
+  }
 
   render() {
     return html`
     <li>
-        <p>x${product.quantity} ${product.title}</p>
-        <button @click="${this.addProduct(product)}">add</button>
-        <button @click="${this.removeProduct(product.id)}">remove</button>
+        <p>x${this.product.quantity} ${this.product.title}</p>
+        <button @click="${() => this.addProduct(this.product)}">add</button>
+        <button @click="${() => this.removeProduct(this.product.id)}">remove</button>
     </li>
     `;
   }
