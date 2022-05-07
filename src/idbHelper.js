@@ -28,7 +28,7 @@ export function initDB() {
   });
 }
 
-// Product getter and setter
+/***** PRODUCTS FUNCTIONS *****/
 export async function setRessources(data = []) {
   const db = await initDB();
   const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
@@ -62,10 +62,10 @@ export async function unsetRessource(id) {
   await db.delete(PRODUCT_STORE_NAME, id);
 }
 
-// Carts getter and setter
+/***** CART FUNCTIONS *****/
 export async function addProductToCart(newProduct = {}) {
   const db = await initDB();
-  let cart = await getCart();
+  let cart = await getLocalCart();
   
   let productAlreadyExist = false;
   cart.products.forEach(product => {
@@ -84,19 +84,25 @@ export async function addProductToCart(newProduct = {}) {
   const tx = db.transaction(CART_STORE_NAME, 'readwrite');
   tx.store.put(cart);
   await tx.done;
-
-  const updatedProduct = cart.products.find(product => product.id === newProduct.id);
-  return updatedProduct;
+  return db.getFromIndex(CART_STORE_NAME, 'id', CART_ID);
 }
 
-export async function getCart() {
+export async function getLocalCart() {
   const db = await initDB();
   return db.getFromIndex(CART_STORE_NAME, "id", Number(CART_ID));
 }
 
+export async function setLocalCart(cart = {}) {
+  const db = await initDB();
+  const tx = db.transaction(CART_STORE_NAME, 'readwrite');
+  tx.store.put(cart);
+  await tx.done;
+  return db.getFromIndex(CART_STORE_NAME, 'id', CART_ID);
+}
+
 export async function removeProductFromCart(productId) {
   const db = await initDB();
-  const cart = await getCart();
+  const cart = await getLocalCart();
 
   for (let i = 0; i < cart.products.length; i++) {
     const product = cart.products[i];
@@ -113,8 +119,6 @@ export async function removeProductFromCart(productId) {
       break;
     }
   }
-
-  console.log(cart);
 
   // update cart in db
   const tx = db.transaction(CART_STORE_NAME, 'readwrite');

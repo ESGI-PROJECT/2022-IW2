@@ -7,16 +7,19 @@ export class AppHome extends Base {
     super();
 
     this.products = [];
+    this.networkState = false;
   }
   static get properties() {
     return {
       products: { type: Array },
+      networkState: { type: Boolean },
     };
   }
   render() {
     return this.products.map(product => html`
       <product-card
         .product="${product}"
+        .networkState="${this.networkState}"
       ></product-card> 
     `)
   }

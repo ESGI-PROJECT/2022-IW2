@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
 import { addProductToCart } from '../idbHelper';
+import {setApiCart} from "../api/cart";
 
 export class AppProduct extends Base {
   constructor() {
@@ -8,16 +9,23 @@ export class AppProduct extends Base {
 
     this.product = {};
     this.loaded = true;
+    this.networkState = false;
   }
   static get properties() {
     return {
       product: { type: Object },
       loaded: { type: Boolean },
+      networkState: { type: Boolean }
     };
   }
 
-  addToCart() {
-    addProductToCart(this.product);
+  async addToCart() {
+    const updatedCart = await addProductToCart(this.product);
+
+    // Update API if connected to internet
+    if (this.networkState) {
+      setApiCart(updatedCart);
+    }
   }
 
   render() {

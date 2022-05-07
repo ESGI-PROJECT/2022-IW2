@@ -1,12 +1,14 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
 import { addProductToCart } from '../idbHelper';
+import {setApiCart} from "../api/cart";
 
 export class ProductCard extends Base {
   constructor() {
     super();
 
     this.product = {};
+    this.networkState = false;
 
     this.loaded = false;
   }
@@ -14,6 +16,7 @@ export class ProductCard extends Base {
     return {
       product: { type: Object },
       loaded: { type: Boolean, state: true },
+      networkState: { type: Boolean },
     }
   }
   firstUpdated() {
@@ -22,8 +25,14 @@ export class ProductCard extends Base {
     });
   }
 
-  addToCart() {
-    addProductToCart(this.product);
+  async addToCart() {
+    const updatedCart = await addProductToCart(this.product);
+    console.log(updatedCart);
+
+    // Update API if connected to internet
+    if (this.networkState) {
+      setApiCart(updatedCart);
+    }
   }
 
   render() {
