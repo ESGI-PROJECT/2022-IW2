@@ -95,7 +95,9 @@
     }
   </style>
   <script src="./src/main.js" type="module"></script>
-
+  <script src="https://kit.fontawesome.com/f956c32298.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
   <link href="./src/components/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="./src/components/product.css"></noscript>
 
@@ -105,11 +107,21 @@
 <body>
   <section id="app">
     <header>
-      <h1><a href="/">Nozama shop 🛍</a></h1>
+      <div class="flex px-8 w-full  flex-row items-center justify-between">
+        <h1><a href="/">Nozama shop 🛍</a></h1>
+        <a href="/cart">
+         <span>
+          <i class="fa fa-cart-arrow-down"></i>
+         </span>
+        </a>
+       
+      </div>
     </header>
     <main>
       <app-home page></app-home>
       <app-product page></app-product>
+      <app-cart page></app-cart>
+      <app-cart-product page></app-cart-product>
 
       <div class="skeleton">
         <div class="hero"></div>
