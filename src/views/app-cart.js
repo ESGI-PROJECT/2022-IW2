@@ -32,8 +32,8 @@ export class AppCart extends Base {
             </tr>
           </thead>
           <tbody>
-            ${this.cart.products.map(     //FIXME: When the quantity of a product reaches 0, it is deleted from the cart but the one below is left with a quantity equal to 0.
-              (product) =>            //FIXME: But in the database, the product has its correct quantity
+            ${this.cart.products.map(
+              (product) =>
               html`
                 <tr>
                   <td><img src="${product.image}" width="50px"/></td>
