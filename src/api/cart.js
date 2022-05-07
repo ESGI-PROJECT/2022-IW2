@@ -2,21 +2,25 @@ import { createRequest } from "./api";
 
 const res = createRequest();
 
-export const getCartContent = () => {
+export const getCart = () => {
     return res.get("/cart")
         .then(({ data }) => data)
         .catch(console.error);
 }
 
 export const removeCartItem = (id) => {
-    return res.delete(`/cart/${id}`, {})
+    return res.delete(`/cart`, {})
         .then(({ data }) => data)
         .catch(console.error);
 }
 
-export const addCart = (item) => {
-    return res.post(`/cart/items`, {
-        item
+export const addCart = (items) => {
+    return res.post(`/cart`, {
+        items: items,
+        total: items.reduce((acc, sum) => {
+            acc += (sum.price) * sum.quantity;
+            return acc;
+        }, 0)
     })
         .then(({ data }) => data)
         .catch(console.error);

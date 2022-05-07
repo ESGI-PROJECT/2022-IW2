@@ -26,12 +26,9 @@ export function initDB() {
 export async function setRessources(data = []) {
   const db = await initDB();
   const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
-  if (data.length > 0) {
-    console.log("data", data)
     data.forEach(item => {
       tx.store.put(item);
-    });
-  }
+  });
   await tx.done;
   return db.getAllFromIndex(PRODUCT_STORE_NAME, 'id');
 }
@@ -44,20 +41,34 @@ export async function setRessource(data = {}) {
   return db.getFromIndex(PRODUCT_STORE_NAME, 'id', data.id);
 }
 
-export async function setCart(data = {}) {
+export async function addToOfflineCart(data = {}) {
   const db = await initDB();
-  const tx = db.transaction(CART_STORE_NAME, 'readwrite');
-  tx.store.put(data);
-  await tx.done;
+  const alreadyExist = await db.getAllFromIndex(CART_STORE_NAME, "id", Number(data.id))
+      .catch(e => {
+        console.log(e)
+        return undefined;
+      });
+
+  if(alreadyExist.findIndex(item => item.id === data.id) !== -1) {
+    data.quantity += Number(1);
+    const tx = db.transaction(CART_STORE_NAME, 'readwrite');
+    tx.store.put(data);
+    await tx.done;
+  } else {
+    data.quantity = Number(1);
+    const tx = db.transaction(CART_STORE_NAME, 'readwrite');
+    tx.store.put(data);
+    await tx.done;
+  }
   return db.getFromIndex(CART_STORE_NAME, 'id', data.id);
 }
 
-export async function getCart() {
+export async function getOfflineCart() {
   const db = await initDB();
   return db.getAllFromIndex(CART_STORE_NAME, "id");
 }
 
-export async function removeFromCart(id) {
+export async function deleteItemOfflineCart(id) {
   const db = await initDB();
   await db.delete(CART_STORE_NAME, id);
 }

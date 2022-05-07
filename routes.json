@@ -1,0 +1,4 @@
+{
+  "http://localhost:3000/cart/*": "/$1",
+  "http://localhost:3000/cart/items/:id": "/cart.items.:id"
+}

@@ -1,14 +1,33 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
-import { setCart } from "../idbHelper";
-import { addCart } from "../api/cart";
+import { addToOfflineCart, getOfflineCart } from "../idbHelper";
+import { addCart, getCart } from "../api/cart";
+import checkConnectivity from "network-latency";
+
+checkConnectivity({
+    interval: 3000,
+    threshold: 2000
+});
+
+let NETWORK_STATE = true;
+
+document.addEventListener('connection-changed', ({ detail: state }) => {
+    NETWORK_STATE = state;
+    if (NETWORK_STATE) {
+        document.documentElement
+            .style.setProperty('--app-bg-color', 'royalblue');
+    } else {
+        document.documentElement
+            .style.setProperty('--app-bg-color', '#6e6f72');
+    }
+    console.log("STATE", NETWORK_STATE)
+});
 
 export class ProductCard extends Base {
     constructor() {
         super();
 
         this.product = {};
-
         this.loaded = false;
     }
 
@@ -26,8 +45,23 @@ export class ProductCard extends Base {
     }
 
     async addToCart() {
-        await addCart(this.product);
-        // await setCart(this.product);
+        // If connection is stable
+        if(NETWORK_STATE) {
+            const cart = await getCart();
+            const alreadyStored = cart.items.findIndex(item => item.id === this.product.id) !== -1;
+            if(alreadyStored) {
+                cart.items[cart.items.findIndex(item => item.id === this.product.id)].quantity += 1;
+                await addCart([...cart.items]);
+                // await addToOfflineCart(this.product);
+            } else {
+                this.product.quantity = 1;
+                await addCart([...cart.items, this.product]);
+                // await addToOfflineCart(this.product);
+            }
+        }
+        // Either way we need to update the indexedDB
+        const offlineCart = await getOfflineCart();
+        await addToOfflineCart(this.product);
     }
 
     render() {
