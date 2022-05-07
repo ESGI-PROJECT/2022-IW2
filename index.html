@@ -20,7 +20,11 @@
       font-family: sans-serif;
     }
     h1 {
-      margin: 0;
+      margin: 0 0 0 15px;
+      padding: 0;
+    }
+    h2 {
+      margin: 0 15px 0 0;
       padding: 0;
     }
     #app > header {
@@ -29,7 +33,8 @@
       top: 0;
       background-color: var(--app-bg-color);
       display: flex;
-      justify-content: center;
+      flex-direction: row;
+      justify-content: space-between;
       align-items: center;
       height: 56px;
       color: #ffffff;
@@ -96,20 +101,25 @@
   </style>
   <script src="./src/main.js" type="module"></script>
 
-  <link href="./src/components/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="./src/components/product.css"></noscript>
+  <link href="./assets/css/card.css" rel="preload" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./assets/css/card.css"></noscript>
 
   <link href="./assets/css/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="./assets/css/product.css"></noscript>
+
+  <link href="./assets/css/cart.css" rel="preload" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./assets/css/cart.css"></noscript>
 </head>
 <body>
   <section id="app">
     <header>
-      <h1><a href="/">Nozama shop 🛍</a></h1>
+      <h1><a href="/">Nozama shop 🛍️</a></h1>
+      <h2><a href="/cart">Cart 🛒</a></h2>
     </header>
     <main>
       <app-home page></app-home>
       <app-product page></app-product>
+      <app-cart page></app-cart>
 
       <div class="skeleton">
         <div class="hero"></div>

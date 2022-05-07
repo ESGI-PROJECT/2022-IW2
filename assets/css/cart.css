@@ -1,0 +1,56 @@
+.total {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #6D6D6D;
+}
+
+.reset {
+    background-color: #F44336;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 0.5rem 0;
+}
+
+.reset:hover {
+    background-color: #D32F2F;
+}
+
+.add-to-cart {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 0.5rem;
+}
+
+.add-to-cart:hover {
+    background-color: #388E3C;
+}
+
+.remove-from-cart {
+    background-color: #F44336;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 0.3rem;
+}
+
+.remove-from-cart:hover {
+    background-color: #D32F2F;
+}

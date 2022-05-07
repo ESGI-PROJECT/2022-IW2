@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
+import "../components/add-to-cart";
 
 export class AppProduct extends Base {
   constructor() {
@@ -14,7 +15,6 @@ export class AppProduct extends Base {
       loaded: { type: Boolean },
     };
   }
-
   render() {
     return html`
       <section class="product">
@@ -31,7 +31,9 @@ export class AppProduct extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <p>${this.product.price}€</p>
         </main>
+        <add-to-cart .product="${this.product}"></add-to-cart>
       </section>
     `;
   }
