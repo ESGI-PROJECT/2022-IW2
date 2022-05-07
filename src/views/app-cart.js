@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { Base } from '../Base';
-import "../components/product-cart";
-import {getCart} from "../idbHelper";
+import {addProductToCart, getCart, removeProductFromCart} from "../idbHelper";
 
 export class AppCart extends Base {
   constructor() {
@@ -21,21 +20,27 @@ export class AppCart extends Base {
     this.requestUpdate();
   }
 
-  shouldUpdate(_changedProperties) {
-    console.log("should update cart");
-    console.log(_changedProperties);
-    return super.shouldUpdate(_changedProperties);
+  async addProduct(product) {
+    const updatedProduct = await addProductToCart(product);
+    this.updateCart();
   }
 
+  async removeProduct(productId) {
+    const updatedProduct = await removeProductFromCart(productId);
+    this.updateCart();
+  }
 
   render() {
-    return html`
+    return html `
       <h1>Your cart</h1>
       <ul>
         ${this.cart.products != undefined && this.cart.products.map(product => html `
-          <product-cart 
-              .updateCart="${this.updateCart}"
-              .product="${product}"></product-cart>`)}
+          <li>
+              <p>x${product.quantity} ${product.title}</p>
+              <button @click="${() => this.addProduct(product)}">add</button>
+              <button @click="${() => this.removeProduct(product.id)}">remove</button>
+          </li>
+          `)}
       </ul>
     `;
   }
