@@ -23,24 +23,6 @@ export function initDB() {
   });
 }
 
-export async function setRessources(data = []) {
-  const db = await initDB();
-  const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
-    data.forEach(item => {
-      tx.store.put(item);
-  });
-  await tx.done;
-  return db.getAllFromIndex(PRODUCT_STORE_NAME, 'id');
-}
-
-export async function setRessource(data = {}) {
-  const db = await initDB();
-  const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
-  tx.store.put(data);
-  await tx.done;
-  return db.getFromIndex(PRODUCT_STORE_NAME, 'id', data.id);
-}
-
 export async function addToOfflineCart(data = {}) {
   const db = await initDB();
   const alreadyExist = await db.getAllFromIndex(CART_STORE_NAME, "id", Number(data.id))
@@ -68,9 +50,49 @@ export async function getOfflineCart() {
   return db.getAllFromIndex(CART_STORE_NAME, "id");
 }
 
+export async function removeQuantityFromOfflineCart(data) {
+  const db = await initDB();
+  const current = await db.getFromIndex(CART_STORE_NAME, 'id', data.id);
+  if ((current.quantity -1) === 0) {
+    await deleteItemOfflineCart(data.id);
+  } else {
+    const tx = db.transaction(CART_STORE_NAME, 'readwrite');
+    current.quantity -= 1;
+    await tx.store.put(current);
+    await tx.done;
+  }
+  return db.getFromIndex(CART_STORE_NAME, 'id', data.id);
+}
+
+export async function addQuantityFromOfflineCart(data) {
+  const db = await initDB();
+  const tx = db.transaction(CART_STORE_NAME, 'readwrite');
+  tx.store.put(data);
+  tx.done;
+  return db.getFromIndex(CART_STORE_NAME, 'id', data.id);
+}
+
 export async function deleteItemOfflineCart(id) {
   const db = await initDB();
   await db.delete(CART_STORE_NAME, id);
+}
+
+export async function setRessources(data = []) {
+  const db = await initDB();
+  const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
+  data.forEach(item => {
+    tx.store.put(item);
+  });
+  await tx.done;
+  return db.getAllFromIndex(PRODUCT_STORE_NAME, 'id');
+}
+
+export async function setRessource(data = {}) {
+  const db = await initDB();
+  const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
+  tx.store.put(data);
+  await tx.done;
+  return db.getFromIndex(PRODUCT_STORE_NAME, 'id', data.id);
 }
 
 export async function getRessources() {

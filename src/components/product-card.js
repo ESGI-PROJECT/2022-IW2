@@ -11,8 +11,10 @@ checkConnectivity({
 
 let NETWORK_STATE = true;
 
-document.addEventListener('connection-changed', ({ detail: state }) => {
-    NETWORK_STATE = state;
+document.addEventListener('connection-changed', connectionChanged);
+
+function connectionChanged(e) {
+    NETWORK_STATE = e.detail;
     if (NETWORK_STATE) {
         document.documentElement
             .style.setProperty('--app-bg-color', 'royalblue');
@@ -20,8 +22,7 @@ document.addEventListener('connection-changed', ({ detail: state }) => {
         document.documentElement
             .style.setProperty('--app-bg-color', '#6e6f72');
     }
-    console.log("STATE", NETWORK_STATE)
-});
+}
 
 export class ProductCard extends Base {
     constructor() {
@@ -36,6 +37,10 @@ export class ProductCard extends Base {
             product: { type: Object },
             loaded: { type: Boolean, state: true },
         }
+    }
+    async disconnectedCallback() {
+        super.disconnectedCallback();
+        removeEventListener('connection-changed', connectionChanged);
     }
 
     firstUpdated() {
@@ -85,8 +90,7 @@ export class ProductCard extends Base {
                     </main>
                 </a>
                 <div style="display: flex; justify-content: center; margin: 1rem 0;">
-                    <button @click="${() => this.addToCart()}"
-                            style="padding: 1rem; background-color: #5ff5c4; color: black; font-weight: bold; border-radius: 1rem; border: none; cursor: pointer">
+                    <button @click="${() => this.addToCart()}" class="buttonCart">
                         Add to cart
                     </button>
                 </div>

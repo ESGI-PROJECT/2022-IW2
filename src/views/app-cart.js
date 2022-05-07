@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { Base } from '../Base';
 import "../components/cart";
+import "../components/cartTotalPrice";
 import { getCart } from "../api/cart";
 
 export class AppCart extends Base {
@@ -22,6 +23,7 @@ export class AppCart extends Base {
 
     render() {
         return html`
+            <cart-total-price></cart-total-price>
             <cart-jesus .cart=${this.cart} .networkState="${this.networkState}" style="display: flex; flex-wrap: wrap; justify-content: space-around;"/>
         `
     }
