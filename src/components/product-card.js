@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
+import { addToCart } from '../idbHelper';
 
 export class ProductCard extends Base {
   constructor() {
@@ -20,6 +21,11 @@ export class ProductCard extends Base {
       this.loaded = true;
     });
   }
+
+  clicked() {
+    addToCart({ id: this.product.id, quantity: 1, price: this.product.price });
+  }
+
   render() {
     return html`
       <a href="/product/${this.product.id}" class="card">
@@ -38,6 +44,7 @@ export class ProductCard extends Base {
           <p>${this.product.description}</p>
         </main>
   </a>
+  <button @click="${this.clicked}">Add to cart</button>
     `;
   }
 }
