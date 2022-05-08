@@ -22,18 +22,27 @@ export class ProductCard extends Base {
 
   async _handleClick() {
     let array = [];
+    let total = 0;
     let cart = await getProductsCart();
    
     let found = cart.items.find(element => element.id == this.product.id);
+
    
     if(typeof(found) == "undefined"){
       this.product.quantity = 1;
       array.push(...cart.items,this.product);
-      addProductCart(array,0);
+      for (let item of array){
+        total += item.price * item.quantity;
+      }
+      addProductCart(array,total);
     }else{
       cart.items[cart.items.findIndex(element => element.id === this.product.id)].quantity += 1;
-      addProductCart(cart.items,0);
+      for (let item of cart.items){
+        total += item.price * item.quantity;
+      }
+      addProductCart(cart.items,total);
     }
+
    
   }
   
