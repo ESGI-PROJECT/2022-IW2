@@ -28,10 +28,12 @@ import { getProducts, getProduct } from "./api/products"
 
   const AppHome = main.querySelector('app-home');
   const AppProduct = main.querySelector('app-product');
+  const AppCart = main.querySelector('app-cart');
   
   page('*', (ctx, next) => {
     AppHome.active = false;
     AppProduct.active = false;
+    AppCart.active = false;
 
     skeleton.removeAttribute('hidden');
 
@@ -71,6 +73,14 @@ import { getProducts, getProduct } from "./api/products"
 
     skeleton.setAttribute('hidden', true);
   });
+
+  page('/cart', async () => {
+    await import("./views/app-cart");
+    AppCart.active = true;
+    skeleton.setAttribute('hidden', true);
+  });
+
+  
 
   page();
 })(document.querySelector("#app"));

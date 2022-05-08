@@ -1,12 +1,17 @@
 import { openDB } from "idb";
 
 const PRODUCT_STORE_NAME = "Products";
+const CART_STORE_NAME = "Cart";
 
 export function initDB() {
   return  openDB("Nozama shop 🛍", 1, {
     upgrade(db) {
       const store = db.createObjectStore(PRODUCT_STORE_NAME, {
         keyPath: "id"
+      });
+
+      const cart = db.createObjectStore(CART_STORE_NAME, {
+        keyPath: "cart"
       });
 
       store.createIndex("id", "id");

@@ -20,10 +20,10 @@ export class AppProduct extends Base {
       <section class="product">
         <header>
           <figure>
-            <div class="placeholder ${this.loaded ? 'fade' : '' }" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
+            <div class="placeholder ${this.loaded ? 'fade' : '' }" style="background-image: url(http://localhost:9001/image/24/${this.product.image})"></div>
             <img
               alt="${this.product.title}"
-              src="http://localhost:9000/image/620/${this.product.image}"
+              src="http://localhost:9001/image/620/${this.product.image}"
               loading="lazy"
               width="1280" height="720">
           </figure>
@@ -31,6 +31,7 @@ export class AppProduct extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <button>Add to cart</button>
         </main>
       </section>
     `;
