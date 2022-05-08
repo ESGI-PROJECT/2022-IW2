@@ -1,18 +1,20 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
+import { getCartIDB, setCartIDB } from '../idbHelper';
+import { setCart } from '../api/cart';
 
 export class ProductCard extends Base {
   constructor() {
     super();
-
     this.product = {};
-
     this.loaded = false;
+    this.networkState = true;
   }
   static get properties() {
     return {
       product: { type: Object },
       loaded: { type: Boolean, state: true },
+      networkState: { type: Boolean }
     }
   }
   firstUpdated() {
@@ -20,6 +22,27 @@ export class ProductCard extends Base {
       this.loaded = true;
     });
   }
+
+  async onAddToCart(e) {
+
+    const cart = await getCartIDB();
+
+    const productInCartIndex = cart.products.findIndex((product) => product.id == this.product.id);
+
+    if (productInCartIndex !== -1) {
+      cart.products[productInCartIndex].quantity++;
+    } else {
+      this.product.quantity = 1;
+      cart.products.push(this.product);
+    }
+
+    cart.amount += this.product.price;
+
+    if (this.networkState) await setCart(cart);
+
+    await setCartIDB(cart);
+  }
+
   render() {
     return html`
       <a href="/product/${this.product.id}" class="card">
@@ -38,6 +61,7 @@ export class ProductCard extends Base {
           <p>${this.product.description}</p>
         </main>
   </a>
+  <button @click="${this.onAddToCart}">Ajouter au panier</button>
     `;
   }
 }
