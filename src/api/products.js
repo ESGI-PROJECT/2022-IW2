@@ -1,4 +1,5 @@
 import { createRequest } from "./api.js"
+import { setCart } from './../idbHelper';
 
 const request = createRequest();
 
@@ -14,3 +15,6 @@ export function getProduct(productId) {
     .catch(console.error);
 }
 
+export function saveCart(product){
+  setCart(product);
+}

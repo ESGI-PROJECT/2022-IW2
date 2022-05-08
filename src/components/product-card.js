@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
+import { saveCart } from "./../api/products"
 
 export class ProductCard extends Base {
   constructor() {
@@ -20,6 +21,10 @@ export class ProductCard extends Base {
       this.loaded = true;
     });
   }
+  _addToCart() {
+    console.log(this.product);
+    saveCart(this.product);
+  }
   render() {
     return html`
       <a href="/product/${this.product.id}" class="card">
@@ -37,8 +42,10 @@ export class ProductCard extends Base {
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
         </main>
-  </a>
+    </a>
+    <button @click="${this._addToCart}">Add to cart</button>
     `;
   }
+  
 }
 customElements.define('product-card', ProductCard);
