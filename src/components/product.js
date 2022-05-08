@@ -1,7 +1,7 @@
 function html(strings, ...values) {
   let str = '';
   strings.forEach((string, i) => {
-      str += string + (values[i] || '');
+    str += string + (values[i] || '');
   });
   return str;
 }
@@ -25,11 +25,8 @@ export default {
       <section class="card">
         <header>
           <figure>
-            <div class="placeholder" style="background-image: url(http://localhost:9000/image/24/${this.props.image})"></div>
-            <img
-              alt="${this.props.title}"
-              src="http://localhost:9000/image/620/${this.props.image}"
-              loading="lazy"
+            <div class="placeholder" style="background-image: url(http://localhost:9000/image/24/xxxxxxxxxxxxxxxxxxx)"></div>
+            <img alt="${this.props.title}" src="http://localhost:9000/image/620/${this.props.image}" loading="lazy"
               width="1280" height="720">
           </figure>
         </header>

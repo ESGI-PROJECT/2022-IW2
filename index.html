@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,60 +10,75 @@
     :root {
       --app-bg-color: royalblue;
     }
-    *,*::before, *::after {
+
+    *,
+    *::before,
+    *::after {
       margin: 0;
       padding: 0;
     }
-    html, body {
+
+    html,
+    body {
       height: 100%;
       width: 100%;
       background-color: #fefefe;
       font-family: sans-serif;
     }
+
     h1 {
       margin: 0;
       padding: 0;
     }
-    #app > header {
-      text-align: center;
+
+    #app>header {
       position: sticky;
       top: 0;
       background-color: var(--app-bg-color);
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
       align-items: center;
       height: 56px;
       color: #ffffff;
       z-index: 10;
     }
-    #app > header a {
+
+    #app>header a {
       text-decoration: none;
       color: inherit;
     }
-    #app > main {
+
+    #app>main {
       padding: 0 1rem;
       padding-top: 1rem;
       padding-bottom: 1rem;
     }
+
     /* App shell */
     /* Skeleton */
-    [hidden] { display: none !important; }
+    [hidden] {
+      display: none !important;
+    }
+
     /* Skeleton */
     .skeleton {
       position: relative;
       overflow: hidden;
     }
+
     .skeleton .hero {
       min-height: 30vh;
       background: var(--app-grey-color, #cccccc);
       margin-bottom: 1rem;
       border-radius: 5px;
     }
+
     .skeleton .title {
       min-height: 20px;
       background: var(--app-grey-color, #cccccc);
       margin-bottom: 1rem;
     }
+
     .skeleton .text {
       min-height: 20px;
       max-width: 60%;
@@ -81,6 +97,7 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
       animation: loading 1.5s infinite;
     }
+
     @keyframes loading {
       100% {
         transform: translateX(100%);
@@ -90,6 +107,7 @@
     [page] {
       display: none;
     }
+
     [page][active] {
       display: block;
     }
@@ -97,19 +115,26 @@
   <script src="./src/main.js" type="module"></script>
 
   <link href="./src/components/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="./src/components/product.css"></noscript>
+  <noscript>
+    <link rel="stylesheet" href="./src/components/product.css">
+  </noscript>
 
   <link href="./assets/css/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="./assets/css/product.css"></noscript>
+  <noscript>
+    <link rel="stylesheet" href="./assets/css/product.css">
+  </noscript>
 </head>
+
 <body>
   <section id="app">
     <header>
       <h1><a href="/">Nozama shop 🛍</a></h1>
+      <h1><a href="/cart">Cart</a></h1>
     </header>
     <main>
       <app-home page></app-home>
       <app-product page></app-product>
+      <app-cart page></app-cart>
 
       <div class="skeleton">
         <div class="hero"></div>
@@ -119,4 +144,5 @@
     </main>
   </section>
 </body>
+
 </html>
