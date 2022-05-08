@@ -33,3 +33,60 @@
 .product main p {
   margin-top: 1rem;
 }
+
+.product-cart {
+  position: relative;
+  margin-top: 40px;
+  background-color: #fff;
+}
+
+.product-cart img {
+  min-width: 100px;
+  margin-right: 20px;
+}
+
+.product-cart h1 {
+  text-align: justify;
+}
+
+.product-cart main {
+  display: flex;
+  padding: 20px;
+}
+
+.product-cart footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  padding: 15px 20px;
+  background-color: #767676;
+  color: #fff;
+  border-radius: 12px;
+}
+
+.product-cart footer>* {
+  flex: 1 1 0px;
+}
+
+.product-cart footer>p {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.product-cart footer>div {
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-cart footer>svg {
+  justify-content: flex-end;
+  height: 40px;
+}
+
+.product-cart footer button {
+  font-size: 25px;
+  min-width: 30px;
+}

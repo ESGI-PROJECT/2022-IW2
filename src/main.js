@@ -22,7 +22,9 @@ import { getCart, setCart } from "./api/cart";
       document.documentElement
         .style.setProperty('--app-bg-color', 'royalblue');
 
-
+      getRessource('Cart', 1).then((cart) => {
+        setCart(cart)
+      }).catch(() => { })
 
     } else {
       document.documentElement
@@ -92,6 +94,8 @@ import { getCart, setCart } from "./api/cart";
     } else {
       cart = await getRessource("Cart", 1);
     }
+
+    console.log(cart);
 
     AppCart.products = cart.products;
     AppCart.total = cart.total;
