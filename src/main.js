@@ -78,6 +78,8 @@ import { getCart, setCart } from "./api/cart";
       storedProduct = await getRessource("Products", params.id);
     }
 
+    console.log(storedProduct);
+
     AppProduct.product = storedProduct;
     AppProduct.active = true;
 
