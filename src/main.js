@@ -2,6 +2,7 @@ import page from "page";
 import checkConnectivity from "network-latency";
 import { getRessource, getRessources, setRessource, setRessources } from './idbHelper';
 import { getProducts, getProduct } from "./api/products"
+import { getCart } from "./api/api";
 
 
 (async (root) => {
@@ -28,10 +29,12 @@ import { getProducts, getProduct } from "./api/products"
 
   const AppHome = main.querySelector('app-home');
   const AppProduct = main.querySelector('app-product');
+  const AppCart = main.querySelector('app-cart');
   
   page('*', (ctx, next) => {
     AppHome.active = false;
     AppProduct.active = false;
+    AppCart.active = false;
 
     skeleton.removeAttribute('hidden');
 
@@ -51,6 +54,25 @@ import { getProducts, getProduct } from "./api/products"
 
     AppHome.products = storedProducts;
     AppHome.active = true;
+
+    skeleton.setAttribute('hidden', true);
+  });
+
+  page('/cart', async () => {
+    await import('./views/app-cart');
+
+    let cart = {};
+    if (NETWORK_STATE) {
+      const addedProducts = await getCart();
+      cart = await setRessource("Cart", addedProducts);
+    } else {
+      cart = await getRessource("Cart", 1);
+    }
+
+    AppCart.products = cart.products;
+    AppCart.total = cart.total;
+    AppCart.active = true;
+
 
     skeleton.setAttribute('hidden', true);
   });
