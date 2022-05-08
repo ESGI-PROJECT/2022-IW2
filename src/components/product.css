@@ -48,6 +48,50 @@
   color: #6D6D6D;
 }
 
+.cart-card {
+  position: relative;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0px 1px 2px 0px hsla(0, 0%, 0%, 0.44);
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  color: inherit;
+}
+
+.cart-card header {
+  position: relative;
+  padding: 0;
+  width: 100px;
+  background-color: rgba(38, 38, 38, 0.64);
+}
+
+.cart-card img {
+  display: block;
+  width: 100px;
+}
+
+.cart-card header .placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100px;
+}
+
+.cart-card main {
+  padding: 0.25rem 0.5rem;
+}
+.cart-card main h1 {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
 /**
   * Persist animation using : animation-fill-mode set to forward 
   * @see https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode

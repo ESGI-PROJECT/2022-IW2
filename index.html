@@ -81,6 +81,18 @@
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
       animation: loading 1.5s infinite;
     }
+
+    .cart-button {
+      position: absolute;
+      right: 0;
+      padding: 10px;
+      margin: 0 10px;
+      background-color: white;
+      border: 1px solid white;
+      border-radius: 10px;
+      color: black !important;
+    }
+
     @keyframes loading {
       100% {
         transform: translateX(100%);
@@ -106,10 +118,12 @@
   <section id="app">
     <header>
       <h1><a href="/">Nozama shop 🛍</a></h1>
+      <a class="cart-button" href="/cart">cart</a>
     </header>
     <main>
       <app-home page></app-home>
       <app-product page></app-product>
+      <app-cart page></app-cart>
 
       <div class="skeleton">
         <div class="hero"></div>
