@@ -72,5 +72,18 @@ import { getProducts, getProduct } from "./api/products"
     skeleton.setAttribute('hidden', true);
   });
 
+  page('/cart/', async ({ params }) => {
+    await import('./views/app-cart');
+
+    if (NETWORK_STATE) {
+    }else {
+      if (NETWORK_STATE) {
+        await addProduct(`${this.product.id}`)
+      }else {
+
+      }
+    }
+  });
+
   page();
 })(document.querySelector("#app"));

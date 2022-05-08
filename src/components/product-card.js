@@ -1,5 +1,19 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
+import { addProduct } from "../api/cart"
+import checkConnectivity from "network-latency";
+
+checkConnectivity({
+  interval: 3000,
+  threshold: 2000
+});
+
+let NETWORK_STATE = true;
+
+document.addEventListener('connection-changed', ({ detail: state }) => {
+  NETWORK_STATE = state;
+});
+
 
 export class ProductCard extends Base {
   constructor() {
@@ -15,11 +29,28 @@ export class ProductCard extends Base {
       loaded: { type: Boolean, state: true },
     }
   }
+
   firstUpdated() {
     this.querySelector('img').addEventListener('load', () => {
       this.loaded = true;
     });
   }
+
+  async _handleClick() {
+    if (NETWORK_STATE) {
+      await addProduct(`${this.product.id}`)
+    }else {
+      if (localStorage.getItem('cart') === null) {
+        localStorage.setItem('cart', []);
+      }
+
+      let cart = localStorage.getItem('cart');
+
+      cart.push(`${this.product.id}`);
+      localStorage.setItem('cart', cart);
+    }
+  }
+
   render() {
     return html`
       <a href="/product/${this.product.id}" class="card">
@@ -38,6 +69,8 @@ export class ProductCard extends Base {
           <p>${this.product.description}</p>
         </main>
   </a>
+      <button @click="${this._handleClick}">Add to cart</button>
+
     `;
   }
 }

@@ -47,3 +47,11 @@ export async function unsetRessource(id) {
   const db = await initDB();
   await db.delete(PRODUCT_STORE_NAME, id);
 }
+
+export async function setRessourceProduct(data = {}) {
+  const db = await initDB();
+  const tx = db.transaction(CART_STORE_NAME, 'readwrite');
+  tx.store.put(data);
+  await tx.done;
+  return db.getFromIndex(CART_STORE_NAME, 'id', data.id);
+}
