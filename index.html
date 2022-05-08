@@ -101,15 +101,23 @@
 
   <link href="./assets/css/product.css" rel="preload" as="style" onload="this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="./assets/css/product.css"></noscript>
+
+  <link href="./assets/css/shop.css" rel="preload" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="./assets/css/shop.css"></noscript>
+  
 </head>
 <body>
   <section id="app">
     <header>
-      <h1><a href="/">Nozama shop 🛍</a></h1>
+      <h1>
+        <a href="/">Nozama shop</a>
+      </h1>
+      <a href="/panier">🛍</a>
     </header>
     <main>
       <app-home page></app-home>
       <app-product page></app-product>
+      <app-dashboard-panier page></app-dashboard-panier>
 
       <div class="skeleton">
         <div class="hero"></div>

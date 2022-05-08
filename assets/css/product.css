@@ -33,3 +33,11 @@
 .product main p {
   margin-top: 1rem;
 }
+
+.product button.add_shop{
+  padding: 10px;
+  margin: 10px;
+  width: 100%;
+  background-color: cadetblue;
+  border-radius: 20px;
+}

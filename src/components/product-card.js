@@ -15,11 +15,19 @@ export class ProductCard extends Base {
       loaded: { type: Boolean, state: true },
     }
   }
+  
   firstUpdated() {
     this.querySelector('img').addEventListener('load', () => {
       this.loaded = true;
     });
   }
+
+  _addInShop(e) {
+    e.preventDefault()
+    let event = new CustomEvent("addProduct",{detail:this.product})
+    document.dispatchEvent(event)
+  }
+  
   render() {
     return html`
       <a href="/product/${this.product.id}" class="card">
@@ -36,6 +44,8 @@ export class ProductCard extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <p>${this.product.price}</p>
+          <button class="add_shop" @click="${this._addInShop}" > ADD </button>
         </main>
   </a>
     `;

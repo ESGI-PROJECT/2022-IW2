@@ -77,3 +77,11 @@
   from { opacity: 1; }
   to   { opacity: 0; }
 }
+
+.card button.add_shop{
+  padding: 10px;
+  margin: 10px;
+  width: 100%;
+  background-color: cadetblue;
+  border-radius: 20px;
+}

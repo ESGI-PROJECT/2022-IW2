@@ -11,9 +11,17 @@ export class AppProduct extends Base {
   static get properties() {
     return {
       product: { type: Object },
-      loaded: { type: Boolean },
+      loaded: { type: Boolean }
     };
   }
+
+
+  _addInShop(e) {
+    e.preventDefault()
+    let event = new CustomEvent("addProduct",{detail:this.product})
+    document.dispatchEvent(event)
+  }
+
 
   render() {
     return html`
@@ -31,9 +39,13 @@ export class AppProduct extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <p>${this.product.price}</p>
+          <button class="add_shop" @click="${this._addInShop}" > ADD </button>
         </main>
       </section>
     `;
   }
+
+
 }
 customElements.define('app-product', AppProduct);

@@ -1,0 +1,52 @@
+.product_shop {
+    display: grid;
+    grid-template-areas: 
+    "s1 s2"
+}
+
+.product_shop main {
+    grid-area: s1;
+    padding-left: 10px;
+}
+
+.product_shop img {
+    display: block;
+    object-fit: contain;
+    width: 25rem;
+    height: auto;
+    max-height: 40vh;
+    
+}
+
+.product_shop header .placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.product_shop button.add_shop{
+    padding: 10px;
+    margin: 10px;
+    background-color: cadetblue;
+    border-radius: 20px;
+}
+
+.product_shop button.remove_quantity_shop{
+    padding: 10px;
+    margin: 10px;
+    background-color:chocolate;
+    border-radius: 20px;
+}
+
+.product_shop button.remove_shop{
+    padding: 10px;
+    margin: 10px;
+    background-color: red;
+    border-radius: 20px;
+    color: white;
+}
