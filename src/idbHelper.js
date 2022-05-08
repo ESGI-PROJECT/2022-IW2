@@ -1,49 +1,51 @@
 import { openDB } from "idb";
 
-const PRODUCT_STORE_NAME = "Products";
-
 export function initDB() {
-  return  openDB("Nozama shop 🛍", 1, {
+  return  openDB("Nozama shop 🛍", 3, {
     upgrade(db) {
-      const store = db.createObjectStore(PRODUCT_STORE_NAME, {
+      const store1 = db.createObjectStore("Products", {
         keyPath: "id"
       });
-
-      store.createIndex("id", "id");
-      store.createIndex("category", "category");
+      const store2 = db.createObjectStore("Cart", {
+        keyPath: "id"
+      });
+      store1.createIndex("id", "id");
+      store1.createIndex("category", "category");
+      store2.createIndex("id", "id");
+      store2.createIndex("category", "category");
     }
   });
 }
 
-export async function setRessources(data = []) {
+export async function setRessources(storeName, data = []) {
   const db = await initDB();
-  const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
+  const tx = db.transaction(storeName, 'readwrite');
   data.forEach(item => {
     tx.store.put(item);
   });
   await tx.done;
-  return db.getAllFromIndex(PRODUCT_STORE_NAME, 'id');
+  return db.getAllFromIndex(storeName, 'id');
 }
 
-export async function setRessource(data = {}) {
+export async function setRessource(storeName, data = {}) {
   const db = await initDB();
-  const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
+  const tx = db.transaction(storeName, 'readwrite');
   tx.store.put(data);
   await tx.done;
-  return db.getFromIndex(PRODUCT_STORE_NAME, 'id', data.id);
+  return db.getFromIndex(storeName, 'id', data.id);
 }
 
-export async function getRessources() {
+export async function getRessources(storeName) {
   const db = await initDB();
-  return db.getAllFromIndex(PRODUCT_STORE_NAME, "id");
+  return db.getAllFromIndex(storeName, "id");
 }
 
-export async function getRessource(id) {
+export async function getRessource(storeName, id) {
   const db = await initDB();
-  return db.getFromIndex(PRODUCT_STORE_NAME, "id", Number(id));
+  return db.getFromIndex(storeName, "id", Number(id));
 }
 
-export async function unsetRessource(id) {
+export async function unsetRessource(storeName, id) {
   const db = await initDB();
-  await db.delete(PRODUCT_STORE_NAME, id);
+  await db.delete(storeName, Number(id));
 }

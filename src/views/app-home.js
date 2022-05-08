@@ -15,6 +15,7 @@ export class AppHome extends Base {
   }
   render() {
     return this.products.map(product => html`
+            <a href="/add-${ JSON.parse(product['id']) }">Add to cart</a>
       <product-card
         .product="${product}"
       ></product-card> 

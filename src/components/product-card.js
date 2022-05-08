@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { html } from 'lit';
 import { Base } from '../Base';
 
 export class ProductCard extends Base {
@@ -36,6 +36,7 @@ export class ProductCard extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <p>${this.product.price}€</p>
         </main>
   </a>
     `;

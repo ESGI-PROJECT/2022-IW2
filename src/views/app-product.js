@@ -31,6 +31,8 @@ export class AppProduct extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <h4>${this.product.price} €</h4>
+          <a href="/">Add to cart</a>
         </main>
       </section>
     `;
