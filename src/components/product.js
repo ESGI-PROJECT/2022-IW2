@@ -36,6 +36,9 @@ export default {
         <main>
           <h1>${this.props.title}</h1>
           <p>${this.props.description}</p>
+          <button @click="${this._addToCart}">
+          Add to Cart
+      </button>
         </main>
       </section>
     `;

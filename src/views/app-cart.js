@@ -1,27 +1,39 @@
-import { LitElement, html, css } from 'lit';
+import { html } from 'lit';
 import { Base } from '../Base';
+import "../components/product-card";
 
 export class AppCart extends Base {
-  constructor() {
-    super();
+    
+    constructor() {
+        super();
+    
+        this.products = [];
+      }
+      static get properties() {
+        return {
+          products: { type: Array },
+        };
+      }
 
-    this.cart = {};
-    this.loaded = true;
-  }
-  static get properties() {
-    return {
-      cart: { type: Object },
-      loaded: { type: Boolean },
-    };
-  }
-
-  render() {
-    return html`
-      <h1>Cart</h1>
-      <br>
-      <h3>Total panier : ${this.cart.total}</h3>
-      
-    `;
-  }
+      render() {
+        return html`
+          <section class="product">
+            <header>
+              <figure>
+                <div class="placeholder ${this.loaded ? 'fade' : '' }" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
+                <img
+                  alt="${this.product.title}"
+                  src="http://localhost:9000/image/620/${this.product.image}"
+                  loading="lazy"
+                  width="1280" height="720">
+              </figure>
+            </header>
+            <main>
+              <h1>${this.product.title}</h1>
+              <p>${this.product.description}</p>
+            </main>
+          </section>
+        `;
+      }
 }
-customElements.define('app-cart', AppCart);
+
