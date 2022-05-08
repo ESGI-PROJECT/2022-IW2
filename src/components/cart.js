@@ -24,21 +24,21 @@ export class CartItem extends Base {
         <header>
             <figure>
                 <div class="placeholder ${this.loaded ? 'fade' : ''}"
-                    style="background-image: url(http://localhost:9000/image/24/xxxxxxxxxxxxxxxxxxxxx)"></div>
+                    style="background-image: url(http://localhost:9000/image/24/)"></div>
                 <img alt="${this.product.title}" src="http://localhost:9000/image/620/${this.product.image}" loading="lazy"
-                    width="1280" height="720">
+                    width="400" height="400">
             </figure>
         </header>
         <main>
             <h1>${this.product.title}</h1>
             <p>${this.product.price} €</p>
         </main>
-        <button @click="${() => this._quantityChange(-1)}">-</button>
+        <button class="btn" @click="${() => this._quantityChange(-1)}">-</button>
         <span>
             ${this.quantity = this.product.quantity}
         </span>
-        <button @click="${() => this._quantityChange(1)}"> +</button>
-        <button @click="${this._removeToCart}"> Remove</button>
+        <button class="btn" @click="${() => this._quantityChange(1)}"> +</button>
+        <button class="btn" @click="${this._removeToCart}"> Remove</button>
     </section>
     `;
     }

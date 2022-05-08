@@ -46,6 +46,15 @@
   border-radius: 1em;
 }
 
+.btn {
+  background-color: royalblue;
+  border: none;
+  color: white;
+  padding: 1em;
+  margin: 1em 0 1em 0;
+  border-radius: 1em;
+}
+
 .card main {
   padding: 0.25rem 0.5rem;
 }
