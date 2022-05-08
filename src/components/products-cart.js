@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { deleteProductCart } from '../api/cart';
+
 import { Base } from '../Base';
 
 export class ProductsCart extends Base {
