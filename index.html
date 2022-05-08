@@ -7,71 +7,100 @@
     <title>Nozama Store 🛍</title>
     <style>
       :root {
-        --app-bg-color: royalblue;
+        --app-color-blue: #4169e1;
+        --app-color-black: #13070c;
+        --app-color-white: #fefefe;
+        --app-color-grey: #cccccc;
+        --app-color-grey-light: #ebebeb;
       }
+
       *,
       *::before,
       *::after {
         margin: 0;
         padding: 0;
+        color: var(--app-color-black);
       }
+
       html,
       body {
         height: 100%;
         width: 100%;
-        background-color: #fefefe;
+        background-color: var(--app-color-white);
         font-family: sans-serif;
       }
+
       h1 {
         margin: 0;
         padding: 0;
       }
+
       #app > header {
-        text-align: center;
         position: sticky;
         top: 0;
-        background-color: var(--app-bg-color);
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        background-color: var(--app-color-blue);
         height: 56px;
-        color: #ffffff;
+        color: var(--app-color-white);
         z-index: 10;
       }
+
       #app > header a {
         text-decoration: none;
         color: inherit;
       }
+
       #app > main {
         padding: 0 1rem;
         padding-top: 1rem;
         padding-bottom: 1rem;
       }
+
+      .nav {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        height: 100%;
+        align-items: center;
+        justify-items: center;
+        font-size: 1.5rem;
+      }
+
+      .nav h1 {
+        grid-column-start: 2;
+      }
+
+      .nav #cart-link {
+        grid-column-start: 3;
+      }
+
       /* App shell */
       /* Skeleton */
       [hidden] {
         display: none !important;
       }
+
       /* Skeleton */
       .skeleton {
         position: relative;
         overflow: hidden;
       }
+
       .skeleton .hero {
         min-height: 30vh;
-        background: var(--app-grey-color, #cccccc);
+        background: var(--app-color-grey);
         margin-bottom: 1rem;
         border-radius: 5px;
       }
+
       .skeleton .title {
         min-height: 20px;
-        background: var(--app-grey-color, #cccccc);
+        background: var(--app-color-grey);
         margin-bottom: 1rem;
       }
+
       .skeleton .text {
         min-height: 20px;
         max-width: 60%;
-        background: var(--app-grey-color, #cccccc);
+        background: var(--app-color-grey);
         margin-bottom: 1rem;
       }
 
@@ -91,6 +120,7 @@
         );
         animation: loading 1.5s infinite;
       }
+
       @keyframes loading {
         100% {
           transform: translateX(100%);
@@ -100,12 +130,19 @@
       [page] {
         display: none;
       }
+
       [page][active] {
         display: block;
       }
     </style>
     <script src="./src/main.js" type="module"></script>
-
+    <link
+      href="./assets/css/main.css"
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+    />
+    <noscript><link rel="stylesheet" href="./assets/css/main.css" /></noscript>
     <link
       href="./src/components/product.css"
       rel="preload"
@@ -115,7 +152,15 @@
     <noscript
       ><link rel="stylesheet" href="./src/components/product.css"
     /></noscript>
-
+    <link
+      href="./src/components/cart.css"
+      rel="preload"
+      as="style"
+      onload="this.rel='stylesheet'"
+    />
+    <noscript
+      ><link rel="stylesheet" href="./src/components/cart.css"
+    /></noscript>
     <link
       href="./assets/css/product.css"
       rel="preload"
@@ -129,11 +174,15 @@
   <body>
     <section id="app">
       <header>
-        <h1><a href="/">Nozama shop 🛍</a></h1>
+        <nav class="nav">
+          <h1><a href="/">Nozama shop 🛍</a></h1>
+          <a href="/cart" id="cart-link">🛒</a>
+        </nav>
       </header>
       <main>
         <app-home page></app-home>
         <app-product page></app-product>
+        <app-cart page></app-cart>
 
         <div class="skeleton">
           <div class="hero"></div>

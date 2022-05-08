@@ -1,6 +1,7 @@
 .product {
   position: relative;
-  display: block;
+  display: grid;
+  grid-gap: 3rem;
 }
 
 .product header {
@@ -29,7 +30,11 @@
   background-position: center;
 }
 
-.product main,
-.product main p {
-  margin-top: 1rem;
+.product main {
+  display: grid;
+  grid-gap: 1.5rem;
+}
+
+.product #price {
+  text-align: center;
 }

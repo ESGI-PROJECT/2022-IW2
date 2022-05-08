@@ -1,5 +1,7 @@
-import { LitElement, html, css } from "lit";
+import { html } from "lit";
 import { Base } from "../Base";
+import { updateCartProduct } from "../idbHelper";
+import { toDollars } from "../utils";
 
 export class AppProduct extends Base {
   constructor() {
@@ -8,11 +10,24 @@ export class AppProduct extends Base {
     this.product = {};
     this.loaded = true;
   }
+
   static get properties() {
     return {
       product: { type: Object },
-      loaded: { type: Boolean },
+      loaded: { type: Boolean, state: true },
     };
+  }
+
+  firstUpdated() {
+    this.querySelector("button").addEventListener("click", () => {
+      updateCartProduct({
+        image: this.product.image,
+        price: this.product.price,
+        productId: this.product.id,
+        quantity: 1,
+        title: this.product.title,
+      });
+    });
   }
 
   render() {
@@ -37,9 +52,12 @@ export class AppProduct extends Base {
         <main>
           <h1>${this.product.title}</h1>
           <p>${this.product.description}</p>
+          <div id="price">${toDollars(this.product.price)}</div>
+          <button type="button" class="add-to-cart">Add to cart</button>
         </main>
       </section>
     `;
   }
 }
+
 customElements.define("app-product", AppProduct);

@@ -8,15 +8,18 @@ export class AppHome extends Base {
 
     this.products = [];
   }
+
   static get properties() {
     return {
       products: { type: Array },
     };
   }
+
   render() {
     return this.products.map(
-      (product) => html` <product-card .product="${product}"></product-card> `
+      (product) => html` <product-card .product="${product}"></product-card>`
     );
   }
 }
+
 customElements.define("app-home", AppHome);
