@@ -6,21 +6,18 @@ export class AppCart extends Base {
     super();
 
     this.cart = {};
-    this.loaded = true;
   }
   static get properties() {
     return {
       cart: { type: Object },
-      loaded: { type: Boolean },
     };
   }
 
   render() {
     return html`
-      <h1>Cart</h1>
-      <br>
-      <h3>Total panier : ${this.cart.total}</h3>
-      
+      <p>
+        There is your cart
+      </p>
     `;
   }
 }
