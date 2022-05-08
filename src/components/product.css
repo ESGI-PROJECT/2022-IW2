@@ -48,6 +48,11 @@
   color: #6D6D6D;
 }
 
+.card-footer{
+  display: flex;
+  justify-content: space-between;
+}
+
 
 /**
   * Persist animation using : animation-fill-mode set to forward 
@@ -60,6 +65,7 @@
   -o-animation: fadeout 2s forwards; /* Opera */
   animation: fadeout 2s forwards;
 }
+
 
 /* Key frame animation */
 @keyframes fadeout {

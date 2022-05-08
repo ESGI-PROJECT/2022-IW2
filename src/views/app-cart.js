@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { Base } from '../Base';
+import "../components/products-cart";
 
 export class AppCart extends Base {
   constructor() {
@@ -17,7 +18,11 @@ export class AppCart extends Base {
   }
 
   render() {
-    return html `<h1>Cart</h1>`;
+    return this.products.map(product => html`
+    <products-cart
+      .product="${product}"
+    ></products-cart> 
+  `)
   }
 }
 customElements.define('app-cart', AppCart);
