@@ -17,7 +17,8 @@ export class AppHome extends Base {
     return this.products.map(product => html`
       <product-card
         .product="${product}"
-      ></product-card> 
+      ></product-card>
+      <button class="btn">Add to cart</button>
     `)
   }
 }

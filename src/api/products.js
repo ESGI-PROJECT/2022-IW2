@@ -13,4 +13,3 @@ export function getProduct(productId) {
     .then(({ data }) => data)
     .catch(console.error);
 }
-
