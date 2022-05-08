@@ -2,7 +2,7 @@ import page from "page";
 import checkConnectivity from "network-latency";
 import { getRessource, getRessources, setRessource, setRessources } from './idbHelper';
 import { getProducts, getProduct } from "./api/products"
-
+import { getCart  } from "./api/carts"
 
 (async (root) => {
   const skeleton = root.querySelector(".skeleton");
@@ -28,11 +28,14 @@ import { getProducts, getProduct } from "./api/products"
 
   const AppHome = main.querySelector('app-home');
   const AppProduct = main.querySelector('app-product');
-  
+  const AppCart = main.querySelector('app-cart');
+
+
   page('*', (ctx, next) => {
     AppHome.active = false;
     AppProduct.active = false;
-
+    AppCart.active = false;
+    
     skeleton.removeAttribute('hidden');
 
     next();
@@ -44,9 +47,9 @@ import { getProducts, getProduct } from "./api/products"
     let storedProducts = [];
     if (NETWORK_STATE) {
       const products = await getProducts();
-      storedProducts = await setRessources(products);
+      storedProducts = await setRessources("Products",products);
     } else {
-      storedProducts = await getRessources();
+      storedProducts = await getRessources("Products");
     }
 
     AppHome.products = storedProducts;
@@ -61,13 +64,30 @@ import { getProducts, getProduct } from "./api/products"
     let storedProduct = {};
     if (NETWORK_STATE) {
       const product = await getProduct(params.id);
-      storedProduct = await setRessource(product);
+      storedProduct = await setRessource("Products",product);
     } else {
-      storedProduct = await getRessource(params.id);
+      storedProduct = await getRessource("Products",params.id);
     }
 
     AppProduct.product = storedProduct;
     AppProduct.active = true;
+
+    skeleton.setAttribute('hidden', true);
+  });
+
+  page('/cart', async () => {
+    await import('./views/app-cart');
+
+    let storedCart = {};
+    if (NETWORK_STATE) {
+      const cart = await getCart();
+      storedCart = await setRessource("Carts",cart);
+    } else {
+      storedCart = await getRessource("Carts","cart");
+    }
+
+    AppCart.carts = storedCart;
+    AppCart.active = true;
 
     skeleton.setAttribute('hidden', true);
   });

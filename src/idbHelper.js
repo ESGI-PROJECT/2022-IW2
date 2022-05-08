@@ -1,6 +1,7 @@
 import { openDB } from "idb";
 
 const PRODUCT_STORE_NAME = "Products";
+const CART_STORE_NAME = "Carts";
 
 export function initDB() {
   return  openDB("Nozama shop 🛍", 1, {
@@ -11,39 +12,51 @@ export function initDB() {
 
       store.createIndex("id", "id");
       store.createIndex("category", "category");
+
+      const store_cart = db.createObjectStore(CART_STORE_NAME, {
+        keyPath: "id"
+      });
+      store_cart.createIndex("id", "id");
+      store_cart.put({ id: "cart" , products: [] , total: 0});
     }
   });
 }
 
-export async function setRessources(data = []) {
+
+export async function setRessources(name,data = []) {
   const db = await initDB();
-  const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
+  const tx = db.transaction(name, 'readwrite');
   data.forEach(item => {
     tx.store.put(item);
   });
   await tx.done;
-  return db.getAllFromIndex(PRODUCT_STORE_NAME, 'id');
+  return db.getAllFromIndex(name, 'id');
 }
 
-export async function setRessource(data = {}) {
+export async function setRessource(name,data = {}) {
   const db = await initDB();
-  const tx = db.transaction(PRODUCT_STORE_NAME, 'readwrite');
+  const tx = db.transaction(name, 'readwrite');
   tx.store.put(data);
   await tx.done;
-  return db.getFromIndex(PRODUCT_STORE_NAME, 'id', data.id);
+  return db.getFromIndex(name, 'id', data.id);
 }
 
-export async function getRessources() {
+export async function getRessources(name) {
   const db = await initDB();
-  return db.getAllFromIndex(PRODUCT_STORE_NAME, "id");
+  return db.getAllFromIndex(name, "id");
 }
 
-export async function getRessource(id) {
+export async function getRessource(name,id) {
   const db = await initDB();
-  return db.getFromIndex(PRODUCT_STORE_NAME, "id", Number(id));
+  if(name === CART_STORE_NAME){
+    id = id;
+  }else{
+    id= Number(id)
+  }
+  return db.getFromIndex(name, "id", id);
 }
 
-export async function unsetRessource(id) {
+export async function unsetRessource(name,id) {
   const db = await initDB();
-  await db.delete(PRODUCT_STORE_NAME, id);
+  await db.delete(name, id);
 }

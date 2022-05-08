@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx vite dev --port 8080",
+    "dev": "npx vite dev --port 8081",
     "database": "npx json-server ./data/db.json --port 3000",
     "shapper": "npx shapper-proxy serve --port 9000"
   },
@@ -12,9 +12,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "vite": "^2.9.1"
+    "vite": "^2.9.8"
   },
   "dependencies": {
+    "dbd": "^0.0.2",
     "idb": "^7.0.1",
     "lit": "^2.2.3",
     "network-latency": "^1.0.1",

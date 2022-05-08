@@ -13,6 +13,7 @@ export class AppHome extends Base {
       products: { type: Array },
     };
   }
+  
   render() {
     return this.products.map(product => html`
       <product-card
