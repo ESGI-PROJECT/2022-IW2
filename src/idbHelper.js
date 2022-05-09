@@ -11,11 +11,16 @@ export function initDB() {
       });
 
       const cart = db.createObjectStore(CART_STORE_NAME, {
-        keyPath: "cart"
+        keyPath: "id"
       });
+
+      cart.createIndex("id", "id");
 
       store.createIndex("id", "id");
       store.createIndex("category", "category");
+
+     
+
     }
   });
 }
@@ -38,6 +43,7 @@ export async function setRessource(data = {}) {
   return db.getFromIndex(PRODUCT_STORE_NAME, 'id', data.id);
 }
 
+
 export async function getRessources() {
   const db = await initDB();
   return db.getAllFromIndex(PRODUCT_STORE_NAME, "id");
@@ -52,3 +58,31 @@ export async function unsetRessource(id) {
   const db = await initDB();
   await db.delete(PRODUCT_STORE_NAME, id);
 }
+
+export async function getRessourcesCart() {
+  const db = await initDB();
+  return db.getAllFromIndex(CART_STORE_NAME, "id");
+}
+
+export async function getRessourceCart(id) {
+  const db = await initDB();
+  return db.getFromIndex(CART_STORE_NAME, "id", Number(id));
+}
+
+export async function unsetRessourceCart(id) {
+  const db = await initDB();
+  await db.delete(CART_STORE_NAME, id);
+}
+
+
+export async function setRessourcesCart(data = []) {
+  const db = await initDB();
+  const tx = db.transaction(CART_STORE_NAME, 'readwrite');
+  
+  data.items.forEach(item => {
+    tx.store.put(item);
+  });
+  await tx.done;
+  return db.getAllFromIndex(CART_STORE_NAME, 'id');
+}
+
