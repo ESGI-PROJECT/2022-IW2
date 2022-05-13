@@ -1,8 +1,15 @@
 import page from "page";
 import checkConnectivity from "network-latency";
-import { getRessource, getRessources, setRessource, setRessources } from './idbHelper';
-import { getProducts, getProduct } from "./api/products"
-
+import {
+  getCartValue,
+  getRessource,
+  getRessources,
+  setRessource,
+  setRessources,
+} from "./idbHelper";
+import { getProducts, getProduct, getCart } from "./api/products";
+import { AppCart } from "./views/app-cart";
+import { PRODUCT_STORE_NAME, CART_STORE_NAME } from "./idbHelper";
 
 (async (root) => {
   const skeleton = root.querySelector(".skeleton");
@@ -10,53 +17,75 @@ import { getProducts, getProduct } from "./api/products"
 
   checkConnectivity({
     interval: 3000,
-    threshold: 2000
+    threshold: 2000,
   });
 
   let NETWORK_STATE = true;
 
-  document.addEventListener('connection-changed', ({ detail: state }) => {
+  document.addEventListener("connection-changed", ({ detail: state }) => {
     NETWORK_STATE = state;
     if (NETWORK_STATE) {
-      document.documentElement
-        .style.setProperty('--app-bg-color', 'royalblue');
+      document.documentElement.style.setProperty("--app-bg-color", "royalblue");
     } else {
-      document.documentElement
-        .style.setProperty('--app-bg-color', '#6e6f72');
+      document.documentElement.style.setProperty("--app-bg-color", "#6e6f72");
     }
   });
 
-  const AppHome = main.querySelector('app-home');
-  const AppProduct = main.querySelector('app-product');
-  
-  page('*', (ctx, next) => {
+  const AppHome = main.querySelector("app-home");
+  const AppProduct = main.querySelector("app-product");
+  const AppCart = main.querySelector("app-cart");
+
+  page("*", (ctx, next) => {
     AppHome.active = false;
     AppProduct.active = false;
+    AppCart.active = false;
 
-    skeleton.removeAttribute('hidden');
+    skeleton.removeAttribute("hidden");
 
     next();
   });
 
-  page('/', async () => {
+  page("/", async () => {
     await import("./views/app-home");
-    
+
     let storedProducts = [];
     if (NETWORK_STATE) {
       const products = await getProducts();
       storedProducts = await setRessources(products);
     } else {
-      storedProducts = await getRessources();
+      storedProducts = await getRessources(PRODUCT_STORE_NAME);
     }
 
     AppHome.products = storedProducts;
     AppHome.active = true;
+    AppHome.location = "home";
 
-    skeleton.setAttribute('hidden', true);
+    skeleton.setAttribute("hidden", true);
   });
 
-  page('/product/:id', async ({ params }) => {
-    await import('./views/app-product');
+  page("/cart", async () => {
+    await import("./views/app-cart");
+
+    let storedCart = [];
+    let storedTotalPrice = null;
+    if (NETWORK_STATE) {
+      // const cart = await getCart();
+      storedCart = await getCartValue("articles");
+      storedTotalPrice = await getCartValue("total");
+      // // } else {
+      // storedCart = await getRessources(CART_STORE_NAME);
+      console.log(storedCart, storedTotalPrice);
+    }
+
+    AppCart.cart = storedCart;
+    AppCart.totalPrice = storedTotalPrice.toFixed(2);
+    AppCart.active = true;
+
+    skeleton.setAttribute("hidden", true);
+  });
+
+  page("/product/:id", async ({ params }) => {
+    await import("./views/app-product");
 
     let storedProduct = {};
     if (NETWORK_STATE) {
@@ -69,7 +98,7 @@ import { getProducts, getProduct } from "./api/products"
     AppProduct.product = storedProduct;
     AppProduct.active = true;
 
-    skeleton.setAttribute('hidden', true);
+    skeleton.setAttribute("hidden", true);
   });
 
   page();
