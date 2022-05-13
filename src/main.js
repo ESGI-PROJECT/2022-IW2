@@ -1,9 +1,11 @@
 import page from "page";
 import checkConnectivity from "network-latency";
 import {
+  getCartKeys,
   getCartValue,
   getRessource,
   getRessources,
+  setCartValue,
   setRessource,
   setRessources,
 } from "./idbHelper";
@@ -67,18 +69,30 @@ import { PRODUCT_STORE_NAME, CART_STORE_NAME } from "./idbHelper";
     await import("./views/app-cart");
 
     let storedCart = [];
-    let storedTotalPrice = null;
+    let storedTotalPrice = 0;
     if (NETWORK_STATE) {
       // const cart = await getCart();
+      // check if articles exist before trying to add some obj, if not, add key "articles"
+      getCartKeys()
+        .then((res) => {
+          if (!res.includes("articles")) setCartValue("articles", []);
+          if (!res.includes("total")) setCartValue("total", 0);
+        })
+        .catch((err) => console.error(err));
       storedCart = await getCartValue("articles");
       storedTotalPrice = await getCartValue("total");
+      console.log(
+        "%cmain.js line:84 storedTotalPrice",
+        "color: #007acc;",
+        storedTotalPrice
+      );
       // // } else {
       // storedCart = await getRessources(CART_STORE_NAME);
-      console.log(storedCart, storedTotalPrice);
     }
 
     AppCart.cart = storedCart;
     AppCart.totalPrice = storedTotalPrice.toFixed(2);
+    AppCart.location = "cart";
     AppCart.active = true;
 
     skeleton.setAttribute("hidden", true);
