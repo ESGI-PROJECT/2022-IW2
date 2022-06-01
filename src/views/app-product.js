@@ -1,5 +1,6 @@
-import { LitElement, html, css } from 'lit';
-import { Base } from '../Base';
+import { LitElement, html, css } from "lit";
+import { Base } from "../Base";
+import { addToCart } from "../cartHelper";
 
 export class AppProduct extends Base {
   constructor() {
@@ -20,20 +21,33 @@ export class AppProduct extends Base {
       <section class="product">
         <header>
           <figure>
-            <div class="placeholder ${this.loaded ? 'fade' : '' }" style="background-image: url(http://localhost:9000/image/24/${this.product.image})"></div>
+            <div
+              class="placeholder ${this.loaded ? "fade" : ""}"
+              style="background-image: url(http://localhost:9000/image/24/${this
+                .product.image})"
+            ></div>
             <img
-              alt="${this.product.title}"
-              src="http://localhost:9000/image/620/${this.product.image}"
               loading="lazy"
-              width="1280" height="720">
+              src="http://localhost:9000/image/500/${this.product.image}"
+              alt="${this.product.description}"
+              data-src="http://localhost:9000/image/500/${this.product.image}"
+              width="1280"
+              height="720"
+            />
           </figure>
         </header>
         <main>
           <h1>${this.product.title}</h1>
+          <p class="price">$ ${this.product.price}</p>
           <p>${this.product.description}</p>
         </main>
+        <footer>
+          <button class="cart-btn" @click="${() => addToCart(this.product)}">
+            Add to cart 🛍
+          </button>
+        </footer>
       </section>
     `;
   }
 }
-customElements.define('app-product', AppProduct);
+customElements.define("app-product", AppProduct);

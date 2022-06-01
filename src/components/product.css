@@ -4,6 +4,9 @@
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0px 1px 2px 0px hsla(0, 0%, 0%, 0.44);
+}
+
+.card a {
   text-decoration: none;
   display: block;
   color: inherit;
@@ -45,7 +48,32 @@
 .card main p {
   padding-top: 0.25rem;
   font-size: 0.75rem;
-  color: #6D6D6D;
+  color: #6d6d6d;
+}
+
+.card footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.card footer .price {
+  padding-left: 0.5rem;
+  font-size: 1.6rem;
+}
+
+/* Cart */
+.cart-btn {
+  margin-top: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  padding: 1rem;
+  font-size: 1.2rem;
+  color: white;
+  background-color: royalblue;
 }
 
 /**
@@ -62,18 +90,30 @@
 
 /* Key frame animation */
 @keyframes fadeout {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Firefox */
 @-moz-keyframes fadeout {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 /* Safari and Chrome */
 @-webkit-keyframes fadeout {
-  from { opacity: 1; }
-  to   { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
