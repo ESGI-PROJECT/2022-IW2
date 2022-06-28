@@ -10,6 +10,7 @@ import {
 } from "./idbHelper";
 import { getProducts, getProduct } from "./api/products";
 import { fetchCart } from "./api/cart";
+import { getAuthState, getUser } from "./firebase";
 
 (async (root) => {
   const skeleton = root.querySelector(".skeleton");
@@ -34,6 +35,20 @@ import { fetchCart } from "./api/cart";
   const AppHome = main.querySelector("app-home");
   const AppProduct = main.querySelector("app-product");
   const AppCart = main.querySelector("app-cart");
+  const AppLogin = main.querySelector("app-login");
+
+  let isUserLogged = getUser();
+
+  getAuthState((user) => {
+    isUserLogged = user;
+
+    if (isUserLogged) {
+      const queryString = new URLSearchParams(location.search);
+
+      return page(queryString.get("from") || location.pathname);
+    }
+    page(`/login?from=${location.pathname}`);
+  });
 
   page("*", async (ctx, next) => {
     main.querySelectorAll("[page]").forEach((page) => (page.active = false));
@@ -53,6 +68,10 @@ import { fetchCart } from "./api/cart";
       ...cart,
       ...storedCart,
     });
+
+    if (!isUserLogged && ctx.pathname != "/login") {
+      return;
+    }
 
     skeleton.removeAttribute("hidden");
 
@@ -101,6 +120,12 @@ import { fetchCart } from "./api/cart";
     AppCart.cart = storedCart;
 
     AppCart.active = true;
+    skeleton.setAttribute("hidden", true);
+  });
+  page("/login", async () => {
+    await import("./views/app-login");
+
+    AppLogin.active = true;
     skeleton.setAttribute("hidden", true);
   });
 

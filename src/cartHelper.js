@@ -3,7 +3,23 @@ import { getCart, setCart } from "./idbHelper";
 
 let NETWORK_STATE = true;
 
+let INSTALL_EVENT;
+
 const badge = document.querySelector(".badge");
+
+const dialog = document.querySelector("dialog");
+
+dialog.querySelector("button").addEventListener("click", async () => {
+  if (INSTALL_EVENT && localStorage.getItem("installPrompted") != "true") {
+    INSTALL_EVENT.prompt();
+
+    const { outcome } = await INSTALL_EVENT.userChoice;
+
+    localStorage.setItem("installPrompted", "true");
+
+    dialog.open = false;
+  }
+});
 
 document.addEventListener("connection-changed", async ({ detail: state }) => {
   NETWORK_STATE = state;
@@ -15,6 +31,12 @@ document.addEventListener("connection-changed", async ({ detail: state }) => {
     await updateCart(storedCart);
     await setCart({ ...storedCart, updated: 0 });
   }
+});
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+
+  INSTALL_EVENT = event;
 });
 
 function updateBadge(cart) {
@@ -43,7 +65,11 @@ export async function addToCart(product) {
     await updateCart(updatedCart);
   }
 
-  setCart(updatedCart);
+  await setCart(updatedCart);
+
+  if (localStorage.getItem("installPrompted") != "true") {
+    setTimeout(() => (dialog.open = true), 1000);
+  }
 }
 
 function computeCartTotal(cart) {

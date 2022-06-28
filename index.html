@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nozama Store 🛍</title>
+    <link rel="manifest" href="./assets/manifest.webmanifest" />
     <style>
       :root {
         --app-bg-color: royalblue;
@@ -123,6 +124,21 @@
         }
       }
 
+      /* Dialog */
+      dialog {
+        border: none;
+        background: white;
+        width: 100%;
+        border-radius: 1rem 1rem 0 0;
+        padding: 0.75rem;
+        box-sizing: border-box;
+        box-shadow: -1px -4px 11px #00000096;
+        position: fixed;
+        bottom: 0;
+        z-index: 15;
+        height: 30vh;
+      }
+
       /* View display */
       [page] {
         display: none;
@@ -163,11 +179,12 @@
       ><link rel="stylesheet" href="./src/assets/css/cart.css"
     /></noscript>
     <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/service-worker.js", {
-          scope: "/",
-        });
-      }
+      console.log("serviceWorker" in navigator);
+      // if ("serviceWorker" in navigator) {
+      //   navigator.serviceWorker.register("/service-worker.js", {
+      //     scope: "/",
+      //   });
+      // }
     </script>
   </head>
   <body>
@@ -197,6 +214,14 @@
         <app-home page></app-home>
         <app-product page></app-product>
         <app-cart page></app-cart>
+        <app-login page></app-login>
+
+        <dialog>
+          <p>
+            We think that you would like to install out awesome application 😎
+          </p>
+          <button>OK</button>
+        </dialog>
 
         <div class="skeleton">
           <div class="hero"></div>

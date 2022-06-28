@@ -1,19 +1,38 @@
 import { LitElement, html, css } from "lit";
 import { Base } from "../Base";
 import { addToCart } from "../cartHelper";
+import { getComments, writeComment } from "../firebase";
 
 export class AppProduct extends Base {
   constructor() {
     super();
 
     this.product = {};
+    this.comments = [];
     this.loaded = true;
   }
   static get properties() {
     return {
       product: { type: Object },
+      comments: { type: Array, state: true },
       loaded: { type: Boolean },
     };
+  }
+
+  async firstUpdated() {
+    getComments((comments) => {
+      console.log("child added");
+      this.comments = [...comments];
+    });
+  }
+
+  sendMessage(e) {
+    e.preventDefault();
+
+    writeComment({
+      message: e.target.querySelector("textarea").value,
+      product: this.product.id,
+    });
   }
 
   render() {
@@ -46,6 +65,16 @@ export class AppProduct extends Base {
             Add to cart 🛍
           </button>
         </footer>
+      </section>
+      <section>
+        <form @submit="${this.sendMessage}">
+          <textarea></textarea>
+          <button>Send</button>
+        </form>
+
+        <ul>
+          ${this.comments.map(({ message }) => html`<li>${message}</li>`)}
+        </ul>
       </section>
     `;
   }
